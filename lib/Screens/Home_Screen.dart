@@ -17,6 +17,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: SafeArea(
+        child: BottomNavigationBar(
+          currentIndex: 0,
+          onTap: (index) {},
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: "Breakdown"),
+            BottomNavigationBarItem(icon: Icon(Icons.report), label: "Report"),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: Text("Add Expense"),
