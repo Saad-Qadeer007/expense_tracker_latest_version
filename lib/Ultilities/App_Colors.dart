@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static final Color primary = Color(0xff6C3CF4); // Berry Purple
+  static final Color primary = Color(0xFF2C245C); // Berry Purple
   static const Color secondary = Color(0xff9C6BFF);
 
   static const Color background = Color(0xffF8F7FD);
