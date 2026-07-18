@@ -5,6 +5,7 @@ import '../Ultilities/App_Colors.dart';
 import '../Ultilities/App_Themes.dart';
 import '../Widgets/Show_Balance_Card.dart';
 import '../Widgets/Transactions_Card.dart';
+import 'Add_Expense_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,14 +25,25 @@ class _HomeScreenState extends State<HomeScreen> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: "Breakdown"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.pie_chart),
+              label: "Breakdown",
+            ),
             BottomNavigationBarItem(icon: Icon(Icons.report), label: "Report"),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Settings",
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddExpenseScreen()),
+          );
+        },
         label: Text("Add Expense"),
         icon: Icon(Icons.add),
         backgroundColor: AppColors.primary,
