@@ -16,6 +16,7 @@ class AddExpenseScreen extends StatefulWidget {
   TextEditingController amountController = TextEditingController();
   TextEditingController catagoryController = TextEditingController();
   TextEditingController noteController = TextEditingController();
+  TextEditingController incomeController = TextEditingController();
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -211,6 +212,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                     });
                                   },
                                   child: TextField(
+                                    controller: widget.catagoryController,
                                     enabled: false,
                                     decoration: InputDecoration(
                                       hintText: "Select Catagory",
@@ -227,14 +229,90 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                 widget.isShowCatagory
                                     ? Wrap(
                                         children: [
-                                          CatagoryChip(CatagoryTitle: "food"),
-                                          CatagoryChip(CatagoryTitle: "travel"),
-                                          CatagoryChip(CatagoryTitle: "other"),
-                                          CatagoryChip(
-                                            CatagoryTitle: "shopping",
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<ExpenseProvider>()
+                                                  .changeExpenseCatagory(
+                                                    "food",
+                                                  );
+                                              setState(() {
+                                                widget.isShowCatagory = false;
+                                                widget.catagoryController.text =
+                                                    "Food";
+                                              });
+                                            },
+                                            child: CatagoryChip(
+                                              CatagoryTitle: "food",
+                                            ),
                                           ),
-                                          CatagoryChip(
-                                            CatagoryTitle: "Entertainment",
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<ExpenseProvider>()
+                                                  .changeExpenseCatagory(
+                                                    "travel",
+                                                  );
+                                              setState(() {
+                                                widget.isShowCatagory = false;
+                                                widget.catagoryController.text =
+                                                    "Travel";
+                                              });
+                                            },
+                                            child: CatagoryChip(
+                                              CatagoryTitle: "travel",
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<ExpenseProvider>()
+                                                  .changeExpenseCatagory(
+                                                    "other",
+                                                  );
+                                              setState(() {
+                                                widget.isShowCatagory = false;
+                                                widget.catagoryController.text =
+                                                    "Other";
+                                              });
+                                            },
+                                            child: CatagoryChip(
+                                              CatagoryTitle: "other",
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<ExpenseProvider>()
+                                                  .changeExpenseCatagory(
+                                                    "shopping",
+                                                  );
+                                              setState(() {
+                                                widget.isShowCatagory = false;
+                                                widget.catagoryController.text =
+                                                    "Shopping";
+                                              });
+                                            },
+                                            child: CatagoryChip(
+                                              CatagoryTitle: "shopping",
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<ExpenseProvider>()
+                                                  .changeExpenseCatagory(
+                                                    "Entertainment",
+                                                  );
+                                              setState(() {
+                                                widget.isShowCatagory = false;
+                                                widget.catagoryController.text =
+                                                    "Entertainment";
+                                              });
+                                            },
+                                            child: CatagoryChip(
+                                              CatagoryTitle: "Entertainment",
+                                            ),
                                           ),
                                         ],
                                       )
@@ -309,33 +387,70 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      print("pressed");
-                                      print(widget.titleController.text);
-                                      context
-                                          .read<ExpenseProvider>()
-                                          .addExpense(
-                                            ExpenseModel(
-                                              id: null,
-                                              expenseTitle:
-                                                  widget.titleController.text,
-                                              expenseCategory: null,
-                                              expenseAmount: double.parse(
+                                      if (widget.titleController.text.isEmpty ||
+                                          widget
+                                              .amountController
+                                              .text
+                                              .isEmpty ||
+                                          double.tryParse(
                                                 widget.amountController.text,
-                                              ),
-                                              expenseDate: pickedDate,
-                                              expenseNote:
-                                                  widget.noteController.text,
+                                              )! <=
+                                              0 ||
+                                          widget
+                                              .catagoryController
+                                              .text
+                                              .isEmpty ||
+                                          widget.dateController.text.isEmpty ||
+                                          widget
+                                              .catagoryController
+                                              .text
+                                              .isEmpty) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.red,
+                                            duration: Duration(seconds: 2),
+                                            content: Text(
+                                              "Please Fill all the fields",
+                                              style: TextStyle(fontSize: 16),
                                             ),
-                                          );
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Colors.green,
-                                          duration: Duration(seconds: 2),
-                                          content: Text("Expense Added"),
-                                        ),
-                                      );
+                                          ),
+                                        );
+                                      } else {
+                                        context
+                                            .read<ExpenseProvider>()
+                                            .addExpense(
+                                              ExpenseModel(
+                                                id: null,
+                                                expenseTitle:
+                                                    widget.titleController.text,
+                                                expenseCategory: widget
+                                                    .catagoryController
+                                                    .text,
+                                                expenseAmount: double.parse(
+                                                  widget.amountController.text,
+                                                ),
+                                                expenseDate: pickedDate,
+                                                expenseNote:
+                                                    widget.noteController.text,
+                                              ),
+                                            );
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.green,
+                                            duration: Duration(seconds: 2),
+                                            content: Text("Expense Added"),
+                                          ),
+                                        );
+                                        widget.titleController.clear();
+                                        widget.amountController.clear();
+                                        widget.catagoryController.clear();
+                                        widget.noteController.clear();
+                                        widget.dateController.clear();
+                                      }
                                     },
                                     child: Text(
                                       "Save Expense",
@@ -370,6 +485,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               ),
                               SizedBox(height: 10),
                               TextFormField(
+                                controller: widget.incomeController,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "Rs 0.00",
                                   border: OutlineInputBorder(),
@@ -385,7 +502,59 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (widget.incomeController.text.isEmpty ||
+                                        widget.incomeController.text == "0") {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 2),
+                                          content: Text(
+                                            "Please Fill Income Field",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                      );
+                                    } else if (double.tryParse(
+                                          widget.incomeController.text,
+                                        )! <
+                                        0) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 2),
+                                          content: Text(
+                                            "Please enter a valid income amount",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      context
+                                          .read<ExpenseProvider>()
+                                          .setBalance(
+                                            widget.incomeController.text,
+                                          );
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.green,
+                                          duration: Duration(seconds: 2),
+                                          content: Text(
+                                            "Income Added",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                      );
+                                      widget.incomeController.clear();
+                                      Navigator.pop(context);
+                                    }
+                                  },
                                   child: Text(
                                     "Save Income",
                                     style: TextStyle(color: Colors.white),

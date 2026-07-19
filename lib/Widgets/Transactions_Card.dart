@@ -4,7 +4,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Ultilities/App_Colors.dart';
 
 class TransactionsCard extends StatefulWidget {
-  const TransactionsCard({super.key});
+  String? expenseTitle;
+  String? catagoryTitle;
+  double? expenseAmount;
+  DateTime? expenseDate;
+
+  TransactionsCard({
+    super.key,
+    this.expenseTitle,
+    this.catagoryTitle,
+    this.expenseAmount,
+    this.expenseDate,
+  });
 
   @override
   State<TransactionsCard> createState() => _TransactionsCardState();
@@ -21,26 +32,42 @@ class _TransactionsCardState extends State<TransactionsCard> {
           children: [
             // Logo
             CircleAvatar(
+              backgroundColor: Color(0xFFD6A2E8),
               radius: 30,
-              child: FaIcon(FontAwesomeIcons.burger, size: 40),
+              child: widget.catagoryTitle?.toLowerCase() == "food"
+                  ? FaIcon(FontAwesomeIcons.burger, color: Colors.white)
+                  : widget.catagoryTitle?.toLowerCase() == "shopping"
+                  ? FaIcon(FontAwesomeIcons.shoppingBag, color: Colors.white)
+                  : widget.catagoryTitle?.toLowerCase() == "travel"
+                  ? FaIcon(FontAwesomeIcons.plane, color: Colors.white)
+                  : widget.catagoryTitle?.toLowerCase() == "Entertainment"
+                  ? FaIcon(FontAwesomeIcons.ticket, color: Colors.white)
+                  : FaIcon(FontAwesomeIcons.mobileRetro, color: Colors.white),
             ),
             SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Burger"),
+                Text(
+                  widget.expenseTitle != null ?
+                  "${widget.expenseTitle?[0].toUpperCase()}${widget.expenseTitle?.substring(1)}" : "Null",
+                ),
                 SizedBox(height: 5),
                 Text(
-                  "Food",
+                  "${widget.catagoryTitle}",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 5),
-                Text("14 July, 2023"),
+                widget.expenseDate != null ?
+                Text(
+                  "${widget.expenseDate!.day} ${widget.expenseDate!.month}, ${widget.expenseDate!.year}",
+                ) : Container(),
               ],
             ),
             Spacer(),
             Text(
-              "\$100",
+              widget.expenseAmount != null ?
+              "\$${widget.expenseAmount!.toStringAsFixed(2)}" : "Null",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
