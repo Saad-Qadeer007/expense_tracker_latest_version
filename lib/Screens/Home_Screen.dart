@@ -19,8 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return
-      Consumer<ExpenseProvider>(builder: (context, provider, child) {
+    return Consumer<ExpenseProvider>(
+      builder: (context, provider, child) {
         return Scaffold(
           bottomNavigationBar: SafeArea(
             child: BottomNavigationBar(
@@ -33,7 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.pie_chart),
                   label: "Breakdown",
                 ),
-                BottomNavigationBarItem(icon: Icon(Icons.report), label: "Report"),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.report),
+                  label: "Report",
+                ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   label: "Settings",
@@ -103,7 +106,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 5),
                         Text(
                           "Expense Tracker",
-                          style: TextStyle(fontSize: 18, color: AppColors.darkText),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppColors.darkText,
+                          ),
                         ),
                         SizedBox(height: 20),
                         ShowBalanceCard(),
@@ -116,10 +122,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: IncomeExpenseCard(title: "Income", amount: provider.Income),
+                          child: IncomeExpenseCard(
+                            title: "Income",
+                            amount: provider.Income,
+                          ),
                         ),
                         Expanded(
-                          child: IncomeExpenseCard(title: "Expense", amount: 500),
+                          child: IncomeExpenseCard(
+                            title: "Expense",
+                            amount: 500,
+                          ),
                         ),
                       ],
                     ),
@@ -168,7 +180,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Chip(
                           backgroundColor: AppColors.primary,
-                          label: Text("All", style: TextStyle(color: Colors.white)),
+                          label: Text(
+                            "All",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                         SizedBox(width: 10),
                         Chip(label: Text("Today")),
@@ -189,6 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: 5,
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Recent Transactions",
@@ -200,22 +216,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 10),
                         Consumer<ExpenseProvider>(
                           builder: (context, provider, child) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: provider.expenses.length,
-                              itemBuilder: (context, index) {
-                                return TransactionsCard(
-                                  expenseTitle:
-                                  provider.expenses[index].expenseTitle,
-                                  catagoryTitle:
-                                  provider.expenses[index].expenseCategory,
-                                  expenseAmount:
-                                  provider.expenses[index].expenseAmount,
-                                  expenseDate: provider.expenses[index].expenseDate,
-                                );
-                              },
-                            );
+                            return provider.expenses.isEmpty
+                                ? Container(
+                                    padding: EdgeInsetsGeometry.all(10),
+                                    child: Center(
+                                      child: Text(
+                                        "No Transactions Yet",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: provider.expenses.length,
+                                    itemBuilder: (context, index) {
+                                      return TransactionsCard(
+                                        expenseTitle: provider
+                                            .expenses[index]
+                                            .expenseTitle,
+                                        catagoryTitle: provider
+                                            .expenses[index]
+                                            .expenseCategory,
+                                        expenseAmount: provider
+                                            .expenses[index]
+                                            .expenseAmount,
+                                        expenseDate: provider
+                                            .expenses[index]
+                                            .expenseDate,
+                                      );
+                                    },
+                                  );
                           },
                         ),
                       ],
@@ -226,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         );
-      });
-
+      },
+    );
   }
 }
