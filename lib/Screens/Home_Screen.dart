@@ -1,6 +1,8 @@
+import 'package:expense_tracker_latest_version/Provider/Expense_Provider.dart';
 import 'package:expense_tracker_latest_version/Widgets/Icome_Expense_Card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import '../Ultilities/App_Colors.dart';
 import '../Ultilities/App_Themes.dart';
 import '../Widgets/Show_Balance_Card.dart';
@@ -194,11 +196,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    TransactionsCard(),
-                    SizedBox(height: 5),
-                    TransactionsCard(),
-                    SizedBox(height: 5),
-                    TransactionsCard(),
+                    Consumer<ExpenseProvider>(
+                      builder: (context, provider, child) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: provider.expenses.length,
+                          itemBuilder: (context, index) {
+                            return TransactionsCard();
+                          },
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

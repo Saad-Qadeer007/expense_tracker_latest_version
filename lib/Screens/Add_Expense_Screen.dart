@@ -1,7 +1,10 @@
 import 'package:expense_tracker_latest_version/Widgets/Catagory_Chip.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../Model/Expense_Model.dart';
+import '../Provider/Expense_Provider.dart';
 import '../Ultilities/App_Colors.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -150,6 +153,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 TextField(
+                                  controller: widget.titleController,
                                   decoration: InputDecoration(
                                     hintText: "e.g Burger",
                                     border: OutlineInputBorder(),
@@ -174,6 +178,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 TextField(
+                                  controller: widget.amountController,
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     hintText: "Rs 0.00",
                                     border: OutlineInputBorder(),
@@ -281,6 +287,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                 ),
                                 SizedBox(height: 10),
                                 TextFormField(
+                                  controller: widget.noteController,
                                   keyboardType: TextInputType.multiline,
                                   minLines: 3,
                                   maxLines: null,
@@ -301,7 +308,35 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      print("pressed");
+                                      print(widget.titleController.text);
+                                      context
+                                          .read<ExpenseProvider>()
+                                          .addExpense(
+                                            ExpenseModel(
+                                              id: null,
+                                              expenseTitle:
+                                                  widget.titleController.text,
+                                              expenseCategory: null,
+                                              expenseAmount: double.parse(
+                                                widget.amountController.text,
+                                              ),
+                                              expenseDate: pickedDate,
+                                              expenseNote:
+                                                  widget.noteController.text,
+                                            ),
+                                          );
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.green,
+                                          duration: Duration(seconds: 2),
+                                          content: Text("Expense Added"),
+                                        ),
+                                      );
+                                    },
                                     child: Text(
                                       "Save Expense",
                                       style: TextStyle(color: Colors.white),

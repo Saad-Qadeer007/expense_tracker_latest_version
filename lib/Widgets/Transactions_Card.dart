@@ -20,7 +20,10 @@ class _TransactionsCardState extends State<TransactionsCard> {
         child: Row(
           children: [
             // Logo
-            CircleAvatar(radius: 30, child:  FaIcon(FontAwesomeIcons.burger, size: 40),),
+            CircleAvatar(
+              radius: 30,
+              child: FaIcon(FontAwesomeIcons.burger, size: 40),
+            ),
             SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
