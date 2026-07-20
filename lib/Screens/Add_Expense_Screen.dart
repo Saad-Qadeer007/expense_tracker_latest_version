@@ -498,6 +498,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     expenseNote: widget
                                                         .noteController
                                                         .text,
+                                                    createdAt: DateTime.now(),
                                                   ),
                                                 );
                                             ScaffoldMessenger.of(
