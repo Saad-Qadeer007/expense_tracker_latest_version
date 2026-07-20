@@ -242,6 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemCount: provider.expenses.length,
                                     itemBuilder: (context, index) {
                                       return TransactionsCard(
+                                        Index : index,
                                         expenseTitle: provider
                                             .expenses[index]
                                             .expenseTitle,

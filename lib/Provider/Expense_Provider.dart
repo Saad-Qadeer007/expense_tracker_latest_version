@@ -56,5 +56,11 @@ class ExpenseProvider extends ChangeNotifier {
     SaveExpense();
     notifyListeners();
   }
+
+
+  void deleteExpense(int index) {
+    expenses.removeAt(index);
+    notifyListeners();
+  }
 }
 
