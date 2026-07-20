@@ -8,6 +8,7 @@ class ExpenseProvider extends ChangeNotifier {
   String getExpenseCatagory = "food";
   double Balance = 0.0;
   double Income = 0.0;
+  double Expense = 0.0;
 
   void changeExpenseCatagory(String ExpenseCatagory) {
     getExpenseCatagory = ExpenseCatagory.toLowerCase();
@@ -23,6 +24,8 @@ class ExpenseProvider extends ChangeNotifier {
   void addExpense(ExpenseModel expense) {
     print(expense.expenseCategory);
     expenses.add(expense);
+    Expense += expense.expenseAmount!;
+    Balance -= expense.expenseAmount!;
     notifyListeners();
   }
 }

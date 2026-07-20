@@ -44,7 +44,7 @@ class _IncomeExpenseCardState extends State<IncomeExpenseCard> {
                 ),
               ],
             ),
-            SizedBox(width: 20),
+            Spacer(),
             widget.title == "Income"
                 ? FaIcon(FontAwesomeIcons.arrowUp, color: Colors.green)
                 : FaIcon(FontAwesomeIcons.arrowDown, color: Colors.red),

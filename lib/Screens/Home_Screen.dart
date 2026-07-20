@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: IncomeExpenseCard(
                             title: "Expense",
-                            amount: 500,
+                            amount: provider.Expense,
                           ),
                         ),
                       ],
