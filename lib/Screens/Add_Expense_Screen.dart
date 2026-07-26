@@ -695,11 +695,24 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             ),
                                           );
                                         } else {
-                                          context
-                                              .read<ExpenseProvider>()
-                                              .setBalance(
+                                          // context
+                                          //     .read<ExpenseProvider>()
+                                          //     .setBalance(
+                                          //       widget.incomeController.text,
+                                          //     );
+                                          context.read<ExpenseProvider>().addExpense(
+                                            ExpenseModel(
+                                              id: null,
+                                              expenseTitle: "Income",
+                                              expenseCategory: "income",
+                                              expenseAmount: double.parse(
                                                 widget.incomeController.text,
-                                              );
+                                              ),
+                                              expenseDate: DateTime.now(),
+                                              expenseNote: "",
+                                              createdAt: DateTime.now(),
+                                            ),
+                                          );
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(

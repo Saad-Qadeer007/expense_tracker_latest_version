@@ -12,22 +12,29 @@ class ExpenseProvider extends ChangeNotifier {
   double Expense = 0.0;
   bool editMode = false;
 
+  // Setting Expense Catagory Controller
+
   void changeExpenseCatagory(String ExpenseCatagory) {
     getExpenseCatagory = ExpenseCatagory.toLowerCase();
     notifyListeners();
   }
+
+  // Setting Edit Status Controller
 
   void changeEditStatus() {
     editMode = true;
     notifyListeners();
   }
 
-  void setBalance(String balance) {
-    Income = double.parse(balance);
-    Balance += Income;
-    SaveExpense();
-    notifyListeners();
-  }
+  // Setting Balance Operation
+  // void setBalance(String balance) {
+  //   Income = double.parse(balance);
+  //   Balance += Income;
+  //   SaveExpense();
+  //   notifyListeners();
+  // }
+
+  // Shared Prefereneces Operations
 
   Future<void> SaveExpense() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -51,10 +58,16 @@ class ExpenseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //  Crud Operations
   void addExpense(ExpenseModel expense) {
     expenses.add(expense);
-    Expense += expense.expenseAmount!;
-    Balance -= expense.expenseAmount!;
+    if (expense.expenseCategory?.toLowerCase() == "income") {
+      Balance += expense.expenseAmount!;
+      Income += expense.expenseAmount!;
+    } else {
+      Balance -= expense.expenseAmount!;
+      Expense -= expense.expenseAmount!;
+    }
     SaveExpense();
     notifyListeners();
   }
@@ -64,15 +77,6 @@ class ExpenseProvider extends ChangeNotifier {
     expenses.removeAt(index);
     Balance += expenses[index].expenseAmount!;
     Expense -= expenses[index].expenseAmount!;
-    SaveExpense();
-    notifyListeners();
-  }
-
-  void resetApp() {
-    expenses.clear();
-    Balance = 0.0;
-    Income = 0.0;
-    Expense = 0.0;
     SaveExpense();
     notifyListeners();
   }
@@ -90,5 +94,14 @@ class ExpenseProvider extends ChangeNotifier {
     notifyListeners();
     SaveExpense();
     editMode = false;
+  }
+
+  void resetApp() {
+    expenses.clear();
+    Balance = 0.0;
+    Income = 0.0;
+    Expense = 0.0;
+    SaveExpense();
+    notifyListeners();
   }
 }
