@@ -1,6 +1,7 @@
 import 'package:expense_tracker_latest_version/Widgets/Catagory_Chip.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../Model/Expense_Model.dart';
@@ -8,7 +9,20 @@ import '../Provider/Expense_Provider.dart';
 import '../Ultilities/App_Colors.dart';
 
 class AddExpenseScreen extends StatefulWidget {
-  AddExpenseScreen({super.key});
+  String gettedExpenseTitleFromEditScreen;
+  String gettedExpenseCatagoryFromEditScreen;
+  String? gettedExpenseAmountFromEditScreen;
+  DateTime? gettedExpenseDateFromEditScreen;
+  int index;
+
+  AddExpenseScreen({
+    super.key,
+    required this.gettedExpenseTitleFromEditScreen,
+    required this.gettedExpenseCatagoryFromEditScreen,
+    required this.gettedExpenseAmountFromEditScreen,
+    required this.gettedExpenseDateFromEditScreen,
+    required this.index,
+  });
 
   bool isShowCatagory = false;
   TextEditingController dateController = TextEditingController();
@@ -25,6 +39,22 @@ class AddExpenseScreen extends StatefulWidget {
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
   @override
   DateTime? pickedDate;
+
+  void passingValuesToFields() {
+    widget.dateController.text =
+        "${widget.gettedExpenseDateFromEditScreen?.day}/${widget.gettedExpenseDateFromEditScreen?.month}/${widget.gettedExpenseDateFromEditScreen?.year}";
+    widget.titleController.text = widget.gettedExpenseTitleFromEditScreen;
+    widget.amountController.text = widget.gettedExpenseAmountFromEditScreen
+        .toString();
+    widget.catagoryController.text = widget.gettedExpenseCatagoryFromEditScreen;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passingValuesToFields();
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -477,6 +507,57 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                 ),
                                               ),
                                             );
+                                          } else if (provider.editMode ==
+                                              true) {
+                                            print(pickedDate);
+                                            context
+                                                .read<ExpenseProvider>()
+                                                .editExpense(
+                                                  widget.index,
+                                                  ExpenseModel(
+                                                    id: null,
+                                                    expenseTitle: widget
+                                                        .titleController
+                                                        .text,
+                                                    expenseCategory: widget
+                                                        .catagoryController
+                                                        .text,
+                                                    expenseAmount: double.parse(
+                                                      widget
+                                                          .amountController
+                                                          .text,
+                                                    ),
+                                                    expenseDate:
+                                                        DateFormat(
+                                                          'dd/MM/yyyy',
+                                                        ).parse(
+                                                          widget
+                                                              .dateController
+                                                              .text,
+                                                        ),
+                                                    expenseNote: widget
+                                                        .noteController
+                                                        .text,
+                                                    createdAt: DateTime.now(),
+                                                  ),
+                                                );
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.green,
+                                                duration: Duration(seconds: 2),
+                                                content: Text(
+                                                  "Expense Updated",
+                                                ),
+                                              ),
+                                            );
+                                            widget.titleController.clear();
+                                            widget.amountController.clear();
+                                            widget.catagoryController.clear();
+                                            widget.noteController.clear();
+                                            widget.dateController.clear();
+                                            Navigator.pop(context);
                                           } else {
                                             context
                                                 .read<ExpenseProvider>()
@@ -517,10 +598,19 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             widget.dateController.clear();
                                           }
                                         },
-                                        child: Text(
-                                          "Save Expense",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
+                                        child: provider.editMode == false
+                                            ? Text(
+                                                "Save Expense",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            : Text(
+                                                "Update Expense",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                   ],

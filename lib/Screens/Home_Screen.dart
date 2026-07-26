@@ -55,7 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddExpenseScreen()),
+                MaterialPageRoute(
+                  builder: (context) => AddExpenseScreen(
+                    gettedExpenseAmountFromEditScreen: "0.00",
+                    gettedExpenseTitleFromEditScreen: '',
+                    gettedExpenseCatagoryFromEditScreen: '',
+                    gettedExpenseDateFromEditScreen: null,
+                    index: 0,
+                  ),
+                ),
               );
             },
             label: Text("Add Expense"),
@@ -84,10 +92,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(Icons.menu, size: 28, color: Colors.white),
-                            FaIcon(
-                              FontAwesomeIcons.bell,
-                              size: 28,
-                              color: Colors.white,
+                            InkWell(
+                              onTap: () {
+                                context.read<ExpenseProvider>().resetApp();
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.bell,
+                                size: 28,
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
@@ -242,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemCount: provider.expenses.length,
                                     itemBuilder: (context, index) {
                                       return TransactionsCard(
-                                        Index : index,
+                                        Index: index,
                                         expenseTitle: provider
                                             .expenses[index]
                                             .expenseTitle,
