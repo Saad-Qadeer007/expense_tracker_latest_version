@@ -49,21 +49,28 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.monetization_on, size: 40),
+                Icon(Icons.monetization_on, size: 40,color: Colors.white,),
                 SizedBox(height: 16),
                 const Text(
                   'Expense Tracker',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   "Smart Finance Management ",
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
-                const Text('Version 1.0.0', style: TextStyle(fontSize: 16)),
+                const Text(
+                  'Version 1.0.0',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
                 const SizedBox(height: 16),
-                const CircularProgressIndicator(),
+                const CircularProgressIndicator(color: Colors.white,),
                 const SizedBox(height: 16),
               ],
             ),

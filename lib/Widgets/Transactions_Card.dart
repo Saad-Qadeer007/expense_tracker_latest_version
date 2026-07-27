@@ -131,11 +131,6 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                 FontAwesomeIcons.ticket,
                                 color: Colors.white,
                               )
-                            : widget.expenseTitle?.toLowerCase() == "income"
-                            ? FaIcon(
-                                FontAwesomeIcons.moneyBill,
-                                color: Colors.white,
-                              )
                             : FaIcon(
                                 FontAwesomeIcons.mobileRetro,
                                 color: Colors.white,
@@ -170,18 +165,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          widget.expenseTitle?.toLowerCase() == "income"
-                              ? Text(
-                                  widget.expenseAmount != null
-                                      ? "+ \$${widget.expenseAmount!.toStringAsFixed(2)}"
-                                      : "Null",
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,
-                                  ),
-                                )
-                              : Text(
+                         Text(
                                   widget.expenseAmount != null
                                       ? "- \$${widget.expenseAmount!.toStringAsFixed(2)}"
                                       : "Null",

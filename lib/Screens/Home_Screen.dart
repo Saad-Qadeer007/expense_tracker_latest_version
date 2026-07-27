@@ -166,6 +166,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Expanded(
                           child: TextField(
+                            onChanged: (value) {
+                              context.read<ExpenseProvider>().searchExpense(
+                                value,
+                              );
+                            },
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.search),
                               labelText: "Enter description",
@@ -249,7 +254,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   )
-                                : ListView.builder(
+                                : provider.searchedMode == false
+                                ? ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: provider.expenses.length,
@@ -270,6 +276,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .expenseDate,
                                       );
                                     },
+                                  )
+                                : provider.searchResults.isNotEmpty && provider.searchedMode == true
+                                ? ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: provider.searchResults.length,
+                                    itemBuilder: (context, index) {
+                                      return TransactionsCard(
+                                        Index: index,
+                                        expenseTitle: provider
+                                            .searchResults[index]
+                                            .expenseTitle,
+                                        catagoryTitle: provider
+                                            .searchResults[index]
+                                            .expenseCategory,
+                                        expenseAmount: provider
+                                            .searchResults[index]
+                                            .expenseAmount,
+                                        expenseDate: provider
+                                            .searchResults[index]
+                                            .expenseDate,
+                                      );
+                                    },
+                                  )
+                                : Container(
+                                    padding: EdgeInsetsGeometry.all(10),
+                                    child: Center(
+                                      child: Text(
+                                        "No Transactions Found",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ),
                                   );
                           },
                         ),

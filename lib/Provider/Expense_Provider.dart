@@ -11,6 +11,8 @@ class ExpenseProvider extends ChangeNotifier {
   double Income = 0.0;
   double Expense = 0.0;
   bool editMode = false;
+  List<ExpenseModel> searchResults = [];
+  bool searchedMode = false;
 
   // Setting Expense Catagory Controller
 
@@ -102,6 +104,25 @@ class ExpenseProvider extends ChangeNotifier {
     Income = 0.0;
     Expense = 0.0;
     SaveExpense();
+    notifyListeners();
+  }
+
+  //   Searching Operations
+
+  void searchExpense(String query) {
+    if (query == "") {
+      searchedMode = false;
+    } else {
+      searchedMode = true;
+    }
+    searchResults = expenses.where((items) {
+      return items.expenseTitle!.toLowerCase().startsWith(query.toLowerCase());
+    }).toList();
+    print(searchResults);
+    List<String?> items = searchResults.map((item) {
+      return item.expenseTitle;
+    }).toList();
+    print(items);
     notifyListeners();
   }
 }
