@@ -120,7 +120,7 @@ class ExpenseProvider extends ChangeNotifier {
 
   void searchExpense(String query) {
     if (query == "") {
-      searchedMode = !searchedMode;
+      searchedMode = false;
     } else {
       searchedMode = true;
     }
