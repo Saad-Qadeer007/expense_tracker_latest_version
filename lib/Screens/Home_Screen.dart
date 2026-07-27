@@ -187,9 +187,39 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Icon(
-                            Icons.filter_alt_outlined,
-                            color: Colors.white,
+                          child: Tooltip(
+                            message: "Filter By Catagory",
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Text("Filter By Catagory"),
+                                    content: Wrap(
+                                      spacing: 8,
+                                      runSpacing: 8,
+                                      children: provider.ExpenseCatagory.map((
+                                        category,
+                                      ) {
+                                        return ActionChip(
+                                          label: Text(category),
+                                          onPressed: () {
+                                            context
+                                                .read<ExpenseProvider>()
+                                                .filterByCatagory(category);
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                Icons.filter_alt_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -277,7 +307,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                                     },
                                   )
-                                : provider.searchResults.isNotEmpty && provider.searchedMode == true
+                                : provider.searchResults.isNotEmpty &&
+                                      provider.searchedMode == true
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),

@@ -13,6 +13,15 @@ class ExpenseProvider extends ChangeNotifier {
   bool editMode = false;
   List<ExpenseModel> searchResults = [];
   bool searchedMode = false;
+  bool ShowChipsForCatagoryFiltering = false;
+  List<String> ExpenseCatagory = [
+    "income",
+    "food",
+    "shopping",
+    "travel",
+    "entertainment",
+    "other",
+  ];
 
   // Setting Expense Catagory Controller
 
@@ -111,7 +120,7 @@ class ExpenseProvider extends ChangeNotifier {
 
   void searchExpense(String query) {
     if (query == "") {
-      searchedMode = false;
+      searchedMode = !searchedMode;
     } else {
       searchedMode = true;
     }
@@ -122,7 +131,18 @@ class ExpenseProvider extends ChangeNotifier {
     List<String?> items = searchResults.map((item) {
       return item.expenseTitle;
     }).toList();
-    print(items);
+    notifyListeners();
+  }
+
+  void filterByCatagory(String catagory) {
+    if (catagory == "") {
+      searchedMode = false;
+    } else {
+      searchedMode = true;
+    }
+    searchResults = expenses.where((items) {
+      return items.expenseCategory == catagory;
+    }).toList();
     notifyListeners();
   }
 }
