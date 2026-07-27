@@ -24,6 +24,8 @@ class ExpenseProvider extends ChangeNotifier {
   ];
   List<String> DateChips = ["All", "Today", "Week", "Month", "Year"];
   late String selectedDateChip = DateChips[0];
+  String searchingQuery = "";
+  String selectedCategory = "";
 
   // Setting Expense Catagory Controller
 
@@ -36,13 +38,6 @@ class ExpenseProvider extends ChangeNotifier {
 
   void changeEditStatus() {
     editMode = true;
-    notifyListeners();
-  }
-
-  // selected Date Filter Controller
-
-  void selectedDateFilter(String chip) {
-    selectedDateChip = chip;
     notifyListeners();
   }
 
@@ -75,6 +70,7 @@ class ExpenseProvider extends ChangeNotifier {
     final ExpensesString = pref.getString("Expenses") ?? "[]";
     List<dynamic> jsonList = jsonDecode(ExpensesString);
     expenses = jsonList.map((e) => ExpenseModel.fromJson(e)).toList();
+    searchResults = List.from(expenses);
     notifyListeners();
   }
 
@@ -93,7 +89,6 @@ class ExpenseProvider extends ChangeNotifier {
   }
 
   void deleteExpense(int index) {
-    print(index);
     expenses.removeAt(index);
     Balance += expenses[index].expenseAmount!;
     Expense -= expenses[index].expenseAmount!;
@@ -125,80 +120,80 @@ class ExpenseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //   Searching Operations
+  //   Searching Operations and Filtering Operations
 
   void searchExpense(String query) {
-    if (query == "") {
-      searchedMode = false;
-    } else {
-      searchedMode = true;
-    }
-    searchResults = expenses.where((items) {
-      return items.expenseTitle!.toLowerCase().startsWith(query.toLowerCase());
-    }).toList();
-    print(searchResults);
-    List<String?> items = searchResults.map((item) {
-      return item.expenseTitle;
-    }).toList();
-    notifyListeners();
+    searchingQuery = query;
+    applyFilters();
   }
 
-  void filterByCatagory(String catagory) {
-    if (catagory == "") {
-      searchedMode = false;
-    } else {
-      searchedMode = true;
-    }
-    searchResults = expenses.where((items) {
-      return items.expenseCategory == catagory;
-    }).toList();
-    notifyListeners();
+  void filterByCategory(String category) {
+    selectedCategory = category;
+    applyFilters();
   }
 
-  //   filter by Date
+  void selectedDateFilter(String chip) {
+    selectedDateChip = chip;
+    applyFilters();
+  }
 
-  void filterByDate() {
-    if (selectedDateChip == "All") {
-      searchedMode = false;
+  void applyFilters() {
+    List<ExpenseModel> filtered = List.from(expenses);
+
+    // Search Filter
+    if (searchingQuery.isNotEmpty) {
+      filtered = filtered.where((expense) {
+        return expense.expenseTitle!.toLowerCase().startsWith(
+          searchingQuery.toLowerCase(),
+        );
+      }).toList();
     }
+
+    // Category Filter
+    if (selectedCategory.isNotEmpty) {
+      filtered = filtered.where((expense) {
+        return expense.expenseCategory == selectedCategory;
+      }).toList();
+    }
+
+    // Date Filter
+    DateTime now = DateTime.now();
+
     if (selectedDateChip == "Today") {
-      searchedMode = true;
-      searchResults = expenses.where((items) {
-        return items.expenseDate?.day == DateTime.now().day &&
-            items.expenseDate?.month == DateTime.now().month &&
-            items.expenseDate?.year == DateTime.now().year;
+      filtered = filtered.where((expense) {
+        return expense.expenseDate!.day == now.day &&
+            expense.expenseDate!.month == now.month &&
+            expense.expenseDate!.year == now.year;
       }).toList();
-      notifyListeners();
+    } else if (selectedDateChip == "Week") {
+      DateTime today = DateTime(now.year, now.month, now.day);
+
+      DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
+
+      DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
+
+      filtered = filtered.where((expense) {
+        return expense.expenseDate!.compareTo(startOfWeek) >= 0 &&
+            expense.expenseDate!.compareTo(endOfWeek) <= 0;
+      }).toList();
+    } else if (selectedDateChip == "Month") {
+      filtered = filtered.where((expense) {
+        return expense.expenseDate!.month == now.month &&
+            expense.expenseDate!.year == now.year;
+      }).toList();
+    } else if (selectedDateChip == "Year") {
+      filtered = filtered.where((expense) {
+        return expense.expenseDate!.year == now.year;
+      }).toList();
     }
 
-    if (selectedDateChip == "Week") {
-      searchedMode = true;
-      DateTime today = DateTime.now();
-      today = DateTime(today.year, today.month, today.day);
-      int NumberOfDay = today.weekday;
-      DateTime StartOfWeek = today.subtract(Duration(days: NumberOfDay - 1));
-      DateTime EndOfWeek = StartOfWeek.add(Duration(days: 6));
-      searchResults = expenses.where((items) {
-        return items.expenseDate!.compareTo(StartOfWeek) >= 0 &&
-            items.expenseDate!.compareTo(EndOfWeek) <= 0;
-      }).toList();
-      notifyListeners();
-    }
+    searchResults = filtered;
 
-    if (selectedDateChip == "Month") {
-      searchedMode = true;
-      searchResults = expenses.where((items) {
-        return items.expenseDate?.month == DateTime.now().month;
-      }).toList();
-      notifyListeners();
-    }
+    searchedMode =
+        searchingQuery.isNotEmpty ||
+        selectedCategory.isNotEmpty ||
+        selectedDateChip != "All";
 
-    if (selectedDateChip == "Year") {
-      searchedMode = true;
-      searchResults = expenses.where((items) {
-        return items.expenseDate?.year == DateTime.now().year;
-      }).toList();
-      notifyListeners();
-    }
+    notifyListeners();
   }
 }

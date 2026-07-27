@@ -167,9 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: TextField(
                             onChanged: (value) {
-                              context.read<ExpenseProvider>().searchExpense(
-                                value,
-                              );
+                              provider.searchExpense(value);
                             },
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.search),
@@ -204,9 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         return ActionChip(
                                           label: Text(category),
                                           onPressed: () {
-                                            context
-                                                .read<ExpenseProvider>()
-                                                .filterByCatagory(category);
+                                            provider.filterByCategory(category);
                                             Navigator.pop(context);
                                           },
                                         );
@@ -247,10 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           onPressed: () {
-                            context.read<ExpenseProvider>().selectedDateFilter(
-                              chips,
-                            );
-                            context.read<ExpenseProvider>().filterByDate();
+                            provider.selectedDateFilter(chips);
                           },
                         );
                       }).toList(),
@@ -276,78 +269,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 10),
                         Consumer<ExpenseProvider>(
                           builder: (context, provider, child) {
-                            return provider.expenses.isEmpty
-                                ? Container(
-                                    padding: EdgeInsetsGeometry.all(10),
-                                    child: Center(
-                                      child: Text(
-                                        "No Transactions Yet",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
+                            final transactions = provider.searchResults;
+
+                            if (transactions.isEmpty) {
+                              return Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Center(
+                                  child: Text(
+                                    provider.expenses.isEmpty
+                                        ? "No Transactions Yet"
+                                        : "No Transactions Found",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade600,
                                     ),
-                                  )
-                                : provider.searchedMode == false
-                                ? ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: provider.expenses.length,
-                                    itemBuilder: (context, index) {
-                                      return TransactionsCard(
-                                        Index: index,
-                                        expenseTitle: provider
-                                            .expenses[index]
-                                            .expenseTitle,
-                                        catagoryTitle: provider
-                                            .expenses[index]
-                                            .expenseCategory,
-                                        expenseAmount: provider
-                                            .expenses[index]
-                                            .expenseAmount,
-                                        expenseDate: provider
-                                            .expenses[index]
-                                            .expenseDate,
-                                      );
-                                    },
-                                  )
-                                : provider.searchResults.isNotEmpty &&
-                                      provider.searchedMode == true
-                                ? ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: provider.searchResults.length,
-                                    itemBuilder: (context, index) {
-                                      return TransactionsCard(
-                                        Index: index,
-                                        expenseTitle: provider
-                                            .searchResults[index]
-                                            .expenseTitle,
-                                        catagoryTitle: provider
-                                            .searchResults[index]
-                                            .expenseCategory,
-                                        expenseAmount: provider
-                                            .searchResults[index]
-                                            .expenseAmount,
-                                        expenseDate: provider
-                                            .searchResults[index]
-                                            .expenseDate,
-                                      );
-                                    },
-                                  )
-                                : Container(
-                                    padding: EdgeInsetsGeometry.all(10),
-                                    child: Center(
-                                      child: Text(
-                                        "No Transactions Found",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  ),
+                                ),
+                              );
+                            }
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: transactions.length,
+                              itemBuilder: (context, index) {
+                                final expense = transactions[index];
+                                return TransactionsCard(
+                                  Index: index,
+                                  expenseTitle: expense.expenseTitle,
+                                  catagoryTitle: expense.expenseCategory,
+                                  expenseAmount: expense.expenseAmount,
+                                  expenseDate: expense.expenseDate,
+                                );
+                              },
+                            );
                           },
                         ),
                       ],
