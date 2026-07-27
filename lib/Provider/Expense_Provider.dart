@@ -22,6 +22,8 @@ class ExpenseProvider extends ChangeNotifier {
     "entertainment",
     "other",
   ];
+  List<String> DateChips = ["All", "Today", "Week", "Month", "Year"];
+  late String selectedDateChip = DateChips[0];
 
   // Setting Expense Catagory Controller
 
@@ -34,6 +36,13 @@ class ExpenseProvider extends ChangeNotifier {
 
   void changeEditStatus() {
     editMode = true;
+    notifyListeners();
+  }
+
+  // selected Date Filter Controller
+
+  void selectedDateFilter(String chip) {
+    selectedDateChip = chip;
     notifyListeners();
   }
 
@@ -144,5 +153,52 @@ class ExpenseProvider extends ChangeNotifier {
       return items.expenseCategory == catagory;
     }).toList();
     notifyListeners();
+  }
+
+  //   filter by Date
+
+  void filterByDate() {
+    if (selectedDateChip == "All") {
+      searchedMode = false;
+    }
+    if (selectedDateChip == "Today") {
+      searchedMode = true;
+      searchResults = expenses.where((items) {
+        return items.expenseDate?.day == DateTime.now().day &&
+            items.expenseDate?.month == DateTime.now().month &&
+            items.expenseDate?.year == DateTime.now().year;
+      }).toList();
+      notifyListeners();
+    }
+
+    if (selectedDateChip == "Week") {
+      searchedMode = true;
+      DateTime today = DateTime.now();
+      today = DateTime(today.year, today.month, today.day);
+      int NumberOfDay = today.weekday;
+      DateTime StartOfWeek = today.subtract(Duration(days: NumberOfDay - 1));
+      DateTime EndOfWeek = StartOfWeek.add(Duration(days: 6));
+      searchResults = expenses.where((items) {
+        return items.expenseDate!.compareTo(StartOfWeek) >= 0 &&
+            items.expenseDate!.compareTo(EndOfWeek) <= 0;
+      }).toList();
+      notifyListeners();
+    }
+
+    if (selectedDateChip == "Month") {
+      searchedMode = true;
+      searchResults = expenses.where((items) {
+        return items.expenseDate?.month == DateTime.now().month;
+      }).toList();
+      notifyListeners();
+    }
+
+    if (selectedDateChip == "Year") {
+      searchedMode = true;
+      searchResults = expenses.where((items) {
+        return items.expenseDate?.year == DateTime.now().year;
+      }).toList();
+      notifyListeners();
+    }
   }
 }

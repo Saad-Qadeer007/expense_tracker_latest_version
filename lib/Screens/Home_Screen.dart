@@ -232,23 +232,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: 5,
                     ),
                     child: Wrap(
-                      children: [
-                        Chip(
-                          backgroundColor: AppColors.primary,
+                      spacing: 6,
+                      children: provider.DateChips.map((chips) {
+                        return ActionChip(
+                          backgroundColor: provider.selectedDateChip == chips
+                              ? AppColors.primary
+                              : Colors.white,
                           label: Text(
-                            "All",
-                            style: TextStyle(color: Colors.white),
+                            chips,
+                            style: TextStyle(
+                              color: provider.selectedDateChip == chips
+                                  ? Colors.white
+                                  : AppColors.primary,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Chip(label: Text("Today")),
-                        SizedBox(width: 10),
-                        Chip(label: Text("Week")),
-                        SizedBox(width: 10),
-                        Chip(label: Text("Month")),
-                        SizedBox(width: 10),
-                        Chip(label: Text("Year")),
-                      ],
+                          onPressed: () {
+                            context.read<ExpenseProvider>().selectedDateFilter(
+                              chips,
+                            );
+                            context.read<ExpenseProvider>().filterByDate();
+                          },
+                        );
+                      }).toList(),
                     ),
                   ),
 
