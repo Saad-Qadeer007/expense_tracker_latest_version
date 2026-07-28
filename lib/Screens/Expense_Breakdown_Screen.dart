@@ -24,6 +24,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                   child: BottomNavigationBar(
                     currentIndex: provider.selctedBottomNavigationIndex,
                     onTap: (index) {
+                      context.read<ExpenseProvider>().calculateTotal();
                       setState(() {
                         print(index);
                         provider.selctedBottomNavigationIndex = index;
@@ -116,8 +117,64 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                             }).toList(),
                           ),
                         ),
-                        // Container For Showing The Expense BreakDown
-                        Container(),
+                        // Container For Showing The Expense BreakDown using pie chart
+                        Container(
+                          padding: EdgeInsetsGeometry.all(15.0),
+                          child: Text("Pie Chart Coming Soon...."),
+                        ),
+
+                        // Showing Catagories by Percentage
+                        Container(
+                          padding: EdgeInsetsGeometry.all(15.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Total Expense : \$${provider.TotalExpense.toStringAsFixed(2)}",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              Divider(),
+                              SizedBox(height: 10),
+                              Column(
+                                children: provider.ExpenseCatagoryTitle.map((
+                                  items,
+                                ) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        color: AppColors.primary,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Expanded(
+                                        child: Text(
+                                          "${items[0].toUpperCase()}${items.substring(1)}",
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        items.toLowerCase() == "food"
+                                            ? "${provider.FoodPercentage.toStringAsFixed(2)} %"
+                                            : items.toLowerCase() == "shopping"
+                                            ? "${provider.ShoppingPercentage.toStringAsFixed(2)} %"
+                                            : items.toLowerCase() == "travel"
+                                            ? "${provider.TravelPercentage.toStringAsFixed(2)} %"
+                                            : items.toLowerCase() == "entertainment"
+                                            ? "${provider.EntertainmentPercentage.toStringAsFixed(2)} %"
+                                            : "${provider.OtherPercentage.toStringAsFixed(2)} %",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      SizedBox(width: 5),
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
                         // Container For Showing The Catagory BreakDown
                         Container(
                           padding: EdgeInsetsGeometry.all(15.0),

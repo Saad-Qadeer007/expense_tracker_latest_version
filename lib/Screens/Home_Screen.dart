@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: BottomNavigationBar(
                     currentIndex: provider.selctedBottomNavigationIndex,
                     onTap: (index) {
+                      context.read<ExpenseProvider>().calculateTotal();
                       setState(() {
                         provider.selctedBottomNavigationIndex = index;
                       });

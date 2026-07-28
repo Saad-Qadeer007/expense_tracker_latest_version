@@ -45,6 +45,14 @@ class ExpenseProvider extends ChangeNotifier {
   double Travel = 0.0;
   double Entertainment = 0.0;
   double Other = 0.0;
+  double TotalExpense = 0.0;
+
+  // Varibles for handling each Catagory Percentage
+  double FoodPercentage = 0;
+  double ShoppingPercentage = 0;
+  double TravelPercentage = 0;
+  double EntertainmentPercentage = 0;
+  double OtherPercentage = 0;
 
   // Setting Expense Catagory Controller
 
@@ -248,5 +256,18 @@ class ExpenseProvider extends ChangeNotifier {
           ? Other += item.expenseAmount!
           : null;
     }).toList();
+    calculatePercentage();
+    notifyListeners();
+  }
+
+  void calculatePercentage() {
+    double total = Food + Shopping + Travel + Entertainment + Other;
+    TotalExpense = total;
+    FoodPercentage = (Food / total) * 100;
+    ShoppingPercentage = (Shopping / total) * 100;
+    TravelPercentage = (Travel / total) * 100;
+    EntertainmentPercentage = (Entertainment / total) * 100;
+    OtherPercentage = (Other / total) * 100;
+    notifyListeners();
   }
 }
