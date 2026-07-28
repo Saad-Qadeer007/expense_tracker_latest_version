@@ -1,0 +1,77 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../Ultilities/App_Colors.dart';
+
+class BreakdownChipsByCatagory extends StatefulWidget {
+  String CatagoryTitle;
+
+  BreakdownChipsByCatagory({super.key, required this.CatagoryTitle});
+
+  @override
+  State<BreakdownChipsByCatagory> createState() =>
+      _BreakdownChipsByCatagoryState();
+}
+
+class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            widget.CatagoryTitle.toLowerCase() == "food"
+                ? CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 35,
+                    child: FaIcon(
+                      FontAwesomeIcons.burger,
+                      color: AppColors.secondary,
+                      size: 35,
+                    ),
+                  )
+                : widget.CatagoryTitle.toLowerCase() == "shopping"
+                ? FaIcon(
+                    FontAwesomeIcons.shoppingBag,
+                    color: Colors.white,
+                    size: 60,
+                  )
+                : widget.CatagoryTitle.toLowerCase() == "travel"
+                ? FaIcon(FontAwesomeIcons.plane, color: Colors.white, size: 60)
+                : widget.CatagoryTitle.toLowerCase() == "entertainment"
+                ? FaIcon(FontAwesomeIcons.ticket, color: Colors.white, size: 60)
+                : FaIcon(
+                    FontAwesomeIcons.mobileRetro,
+                    color: Colors.white,
+                    size: 60,
+                  ),
+            SizedBox(height: 8),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "${widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1)}",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "\$ 10",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

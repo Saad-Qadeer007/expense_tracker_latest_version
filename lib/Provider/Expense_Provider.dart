@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:expense_tracker_latest_version/Widgets/Icome_Expense_Card.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/Expense_Model.dart';
@@ -22,10 +23,21 @@ class ExpenseProvider extends ChangeNotifier {
     "entertainment",
     "other",
   ];
+  late List<String> ExpenseCatagoryTitle = [
+    "food",
+    "shopping",
+    "travel",
+    "entertainment",
+    "other",
+  ];
   List<String> DateChips = ["All", "Today", "Week", "Month", "Year"];
   late String selectedDateChip = DateChips[0];
   String searchingQuery = "";
   String selectedCategory = "";
+
+  // Handling the Bottom Navigation Bar
+  int selctedBottomNavigationIndex = 0;
+  String selectedDateChipForBreakDown = "All";
 
   // Setting Expense Catagory Controller
 
@@ -194,6 +206,13 @@ class ExpenseProvider extends ChangeNotifier {
         selectedCategory.isNotEmpty ||
         selectedDateChip != "All";
 
+    notifyListeners();
+  }
+
+  //   BreakDown Screen
+
+  void selctedDateChipForBreakDown(String chip) {
+    selectedDateChipForBreakDown = chip;
     notifyListeners();
   }
 }
