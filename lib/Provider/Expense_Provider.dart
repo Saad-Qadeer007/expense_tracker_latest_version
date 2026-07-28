@@ -39,6 +39,13 @@ class ExpenseProvider extends ChangeNotifier {
   int selctedBottomNavigationIndex = 0;
   String selectedDateChipForBreakDown = "All";
 
+  // Vaibles for Handling each Catagory Final Calculation
+  double Food = 0.0;
+  double Shopping = 0.0;
+  double Travel = 0.0;
+  double Entertainment = 0.0;
+  double Other = 0.0;
+
   // Setting Expense Catagory Controller
 
   void changeExpenseCatagory(String ExpenseCatagory) {
@@ -89,6 +96,7 @@ class ExpenseProvider extends ChangeNotifier {
   //  Crud Operations
   void addExpense(ExpenseModel expense) {
     expenses.add(expense);
+    searchResults = List.from(expenses);
     if (expense.expenseCategory?.toLowerCase() == "income") {
       Balance += expense.expenseAmount!;
       Income += expense.expenseAmount!;
@@ -214,5 +222,31 @@ class ExpenseProvider extends ChangeNotifier {
   void selctedDateChipForBreakDown(String chip) {
     selectedDateChipForBreakDown = chip;
     notifyListeners();
+  }
+
+  //   Calculating the Total of Each Catagoty
+  void calculateTotal() {
+    Food = 0.0;
+    Shopping = 0.0;
+    Travel = 0.0;
+    Entertainment = 0.0;
+    Other = 0.0;
+    expenses.map((item) {
+      item.expenseCategory?.toLowerCase() == "food"
+          ? Food += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "shopping"
+          ? Shopping += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "travel"
+          ? Travel += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "entertainment"
+          ? Entertainment += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "other"
+          ? Other += item.expenseAmount!
+          : null;
+    }).toList();
   }
 }
