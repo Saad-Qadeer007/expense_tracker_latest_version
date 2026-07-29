@@ -119,7 +119,9 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                           ),
                         ),
                         // Container For Showing The Expense BreakDown using pie chart
-                        Container(
+                        provider.expenses.isEmpty || provider.expenses.every((item){
+                          return item.expenseTitle?.toLowerCase() == "income";
+                        }) ? Padding(padding: EdgeInsetsGeometry.all(15.0),child: Text("No Expenses Yet")) : Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           child: ExpenseBreakDownChart(),
                         ),

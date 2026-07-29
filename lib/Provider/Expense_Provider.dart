@@ -48,11 +48,11 @@ class ExpenseProvider extends ChangeNotifier {
   double TotalExpense = 0.0;
 
   // Varibles for handling each Catagory Percentage
-  double FoodPercentage = 0;
-  double ShoppingPercentage = 0;
-  double TravelPercentage = 0;
-  double EntertainmentPercentage = 0;
-  double OtherPercentage = 0;
+  double FoodPercentage = 0.0;
+  double ShoppingPercentage = 0.0;
+  double TravelPercentage = 0.0;
+  double EntertainmentPercentage = 0.0;
+  double OtherPercentage = 0.0;
 
   // Setting Expense Catagory Controller
 
@@ -67,14 +67,6 @@ class ExpenseProvider extends ChangeNotifier {
     editMode = true;
     notifyListeners();
   }
-
-  // Setting Balance Operation
-  // void setBalance(String balance) {
-  //   Income = double.parse(balance);
-  //   Balance += Income;
-  //   SaveExpense();
-  //   notifyListeners();
-  // }
 
   // Shared Prefereneces Operations
 
@@ -117,6 +109,7 @@ class ExpenseProvider extends ChangeNotifier {
   }
 
   void deleteExpense(int index) {
+    print(expenses[index].expenseTitle);
     expenses.removeAt(index);
     Balance += expenses[index].expenseAmount!;
     Expense -= expenses[index].expenseAmount!;
@@ -144,6 +137,15 @@ class ExpenseProvider extends ChangeNotifier {
     Balance = 0.0;
     Income = 0.0;
     Expense = 0.0;
+    FoodPercentage = 0.0;
+    ShoppingPercentage = 0.0;
+    TravelPercentage = 0.0;
+    EntertainmentPercentage = 0.0;
+    OtherPercentage = 0.0;
+    editMode = false;
+    searchResults = [];
+    searchedMode = false;
+    ShowChipsForCatagoryFiltering = false;
     SaveExpense();
     notifyListeners();
   }
@@ -263,11 +265,20 @@ class ExpenseProvider extends ChangeNotifier {
   void calculatePercentage() {
     double total = Food + Shopping + Travel + Entertainment + Other;
     TotalExpense = total;
-    FoodPercentage = (Food / total) * 100;
-    ShoppingPercentage = (Shopping / total) * 100;
-    TravelPercentage = (Travel / total) * 100;
-    EntertainmentPercentage = (Entertainment / total) * 100;
-    OtherPercentage = (Other / total) * 100;
-    notifyListeners();
+    if (total == 0) {
+      FoodPercentage = 0.0;
+      ShoppingPercentage = 0.0;
+      TravelPercentage = 0.0;
+      EntertainmentPercentage = 0.0;
+      OtherPercentage = 0.0;
+      notifyListeners();
+    } else {
+      FoodPercentage = (Food / total) * 100;
+      ShoppingPercentage = (Shopping / total) * 100;
+      TravelPercentage = (Travel / total) * 100;
+      EntertainmentPercentage = (Entertainment / total) * 100;
+      OtherPercentage = (Other / total) * 100;
+      notifyListeners();
+    }
   }
 }

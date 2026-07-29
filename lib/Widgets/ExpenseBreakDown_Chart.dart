@@ -36,22 +36,22 @@ class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
                       : Colors.grey.shade300,
                   value: items.toLowerCase() == "food"
                       ? provider.FoodPercentage == 0.0
-                            ? null
+                            ? 0
                             : provider.FoodPercentage
                       : items.toLowerCase() == "shopping"
                       ? provider.ShoppingPercentage == 0.0
-                            ? null
+                            ? 0
                             : provider.ShoppingPercentage
                       : items.toLowerCase() == "travel"
                       ? provider.TravelPercentage == 0.0
-                            ? null
+                            ? 0
                             : provider.TravelPercentage
                       : items.toLowerCase() == "entertainment"
                       ? provider.EntertainmentPercentage == 0.0
-                            ? null
+                            ? 0
                             : provider.EntertainmentPercentage
                       : provider.OtherPercentage == 0.0
-                      ? null
+                      ? 0
                       : provider.OtherPercentage,
                   title: items.toLowerCase() == "food"
                       ? provider.FoodPercentage.toStringAsFixed(2) == 0.00
