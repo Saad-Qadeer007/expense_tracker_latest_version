@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../Ultilities/App_Colors.dart';
 import '../Widgets/BreakDown_Chips_By_Catagory.dart';
+import '../Widgets/ExpenseBreakDown_Chart.dart';
 
 class BreakDownScreen extends StatefulWidget {
   const BreakDownScreen({super.key});
@@ -120,7 +121,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                         // Container For Showing The Expense BreakDown using pie chart
                         Container(
                           padding: EdgeInsetsGeometry.all(15.0),
-                          child: Text("Pie Chart Coming Soon...."),
+                          child: ExpenseBreakDownChart(),
                         ),
 
                         // Showing Catagories by Percentage
@@ -145,7 +146,16 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                     children: [
                                       Icon(
                                         Icons.circle,
-                                        color: AppColors.primary,
+                                        color: items.toLowerCase() == "food"
+                                            ? AppColors.primary
+                                            : items.toLowerCase() == "shopping"
+                                            ? AppColors.secondary
+                                            : items.toLowerCase() == "travel"
+                                            ? Colors.pinkAccent
+                                            : items.toLowerCase() ==
+                                                  "entertainment"
+                                            ? Colors.grey
+                                            : Colors.grey.shade300,
                                       ),
                                       SizedBox(width: 5),
                                       Expanded(
@@ -162,7 +172,8 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                             ? "${provider.ShoppingPercentage.toStringAsFixed(2)} %"
                                             : items.toLowerCase() == "travel"
                                             ? "${provider.TravelPercentage.toStringAsFixed(2)} %"
-                                            : items.toLowerCase() == "entertainment"
+                                            : items.toLowerCase() ==
+                                                  "entertainment"
                                             ? "${provider.EntertainmentPercentage.toStringAsFixed(2)} %"
                                             : "${provider.OtherPercentage.toStringAsFixed(2)} %",
                                         style: TextStyle(fontSize: 18),
