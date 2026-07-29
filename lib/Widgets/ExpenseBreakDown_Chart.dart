@@ -26,6 +26,8 @@ class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
               alignment: Alignment.center,
               children: [
                 PieChart(
+                  duration: const Duration(milliseconds: 1500),
+                  curve: Curves.easeIn,
                   PieChartData(
                     sections: provider.ExpenseCatagoryTitle.map((items) {
                       return PieChartSectionData(
@@ -66,9 +68,12 @@ class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
                             ? provider.ShoppingPercentage.toStringAsFixed(2) ==
                                       0.00
                                   ? null
-                                  : provider.ShoppingPercentage.toStringAsFixed(2)
+                                  : provider.ShoppingPercentage.toStringAsFixed(
+                                      2,
+                                    )
                             : items.toLowerCase() == "travel"
-                            ? provider.TravelPercentage.toStringAsFixed(2) == 0.00
+                            ? provider.TravelPercentage.toStringAsFixed(2) ==
+                                      0.00
                                   ? null
                                   : provider.TravelPercentage.toStringAsFixed(2)
                             : items.toLowerCase() == "entertainment"
@@ -81,7 +86,8 @@ class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
                                         .EntertainmentPercentage.toStringAsFixed(
                                       2,
                                     )
-                            : provider.OtherPercentage.toStringAsFixed(2) == 0.00
+                            : provider.OtherPercentage.toStringAsFixed(2) ==
+                                  0.00
                             ? null
                             : provider.OtherPercentage.toStringAsFixed(2),
                         titleStyle: TextStyle(
@@ -98,8 +104,11 @@ class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "\$1200",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      "\$ ${provider.TotalExpense.toStringAsFixed(2)}",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text("Total Expense"),
                   ],

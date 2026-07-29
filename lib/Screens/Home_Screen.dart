@@ -1,5 +1,6 @@
 import 'package:expense_tracker_latest_version/Provider/Expense_Provider.dart';
 import 'package:expense_tracker_latest_version/Screens/Expense_Breakdown_Screen.dart';
+import 'package:expense_tracker_latest_version/Screens/Settings.dart';
 import 'package:expense_tracker_latest_version/Widgets/Icome_Expense_Card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -335,7 +336,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               )
-            : BreakDownScreen();
+            : provider.selctedBottomNavigationIndex == 1
+            ? BreakDownScreen()
+            : provider.selctedBottomNavigationIndex == 3
+            ? Settings()
+            : Container();
       },
     );
   }
