@@ -94,37 +94,44 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                           padding: EdgeInsetsGeometry.all(15.0),
                           child: Wrap(
                             spacing: 8,
-                            children: provider.DateChips.map((item) {
+                            children: provider.DateChips.map((items) {
                               return ActionChip(
                                 backgroundColor:
                                     provider.selectedDateChipForBreakDown ==
-                                        item
+                                        items
                                     ? AppColors.primary
                                     : Colors.white,
                                 label: Text(
-                                  item,
+                                  items,
                                   style: TextStyle(
                                     color:
                                         provider.selectedDateChipForBreakDown ==
-                                            item
+                                            items
                                         ? Colors.white
                                         : AppColors.primary,
                                   ),
                                 ),
                                 onPressed: () {
-                                  provider.selctedDateChipForBreakDown(item);
+                                  provider.selctedDateChipForBreakDown(items);
                                 },
                               );
                             }).toList(),
                           ),
                         ),
                         // Container For Showing The Expense BreakDown using pie chart
-                        provider.expenses.isEmpty || provider.expenses.every((item){
-                          return item.expenseTitle?.toLowerCase() == "income";
-                        }) ? Padding(padding: EdgeInsetsGeometry.all(15.0),child: Text("No Expenses Yet")) : Container(
-                          padding: EdgeInsetsGeometry.all(15.0),
-                          child: ExpenseBreakDownChart(),
-                        ),
+                        provider.expenses.isEmpty ||
+                                provider.expenses.every((item) {
+                                  return item.expenseTitle?.toLowerCase() ==
+                                      "income";
+                                })
+                            ? Padding(
+                                padding: EdgeInsetsGeometry.all(15.0),
+                                child: Text("No Expenses Yet"),
+                              )
+                            : Container(
+                                padding: EdgeInsetsGeometry.all(15.0),
+                                child: ExpenseBreakDownChart(),
+                              ),
 
                         // Showing Catagories by Percentage
                         Container(
@@ -199,10 +206,97 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                             mainAxisSpacing: 10,
                             childAspectRatio: 1,
                             children: provider.ExpenseCatagoryTitle.map((item) {
-                              return BreakdownChipsByCatagory(
-                                CatagoryTitle: item,
+                              return InkWell(
+                                onTap: () {
+                                  provider.selctedCatagoryForBreakDown(item);
+                                },
+                                child: BreakdownChipsByCatagory(
+                                  CatagoryTitle: item,
+                                ),
                               );
                             }).toList(),
+                          ),
+                        ),
+
+                        //   Tranactions
+                        Container(
+                          padding: EdgeInsetsGeometry.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Transactions",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Divider(),
+                              SizedBox(height: 10),
+                              provider.ExpenseBreakDown.isEmpty
+                                  ? SizedBox(
+                                      height: 200,
+                                      child: Center(
+                                        child: Text("No Expenses Yet"),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                          provider.ExpenseBreakDown.length,
+                                      itemBuilder: (context, index) {
+                                        var expense =
+                                            provider.ExpenseBreakDown[index];
+                                        return ListTile(
+                                          leading: Icon(
+                                            Icons.circle,
+                                            color:
+                                                expense.expenseCategory
+                                                        ?.toLowerCase() ==
+                                                    "food"
+                                                ? AppColors.primary
+                                                : expense.expenseCategory
+                                                          ?.toLowerCase() ==
+                                                      "shopping"
+                                                ? AppColors.secondary
+                                                : expense.expenseCategory
+                                                          ?.toLowerCase() ==
+                                                      "travel"
+                                                ? Colors.pinkAccent
+                                                : expense.expenseCategory
+                                                          ?.toLowerCase() ==
+                                                      "entertainment"
+                                                ? Colors.grey
+                                                : Colors.grey.shade300,
+                                          ),
+                                          title: Text(
+                                            expense.expenseTitle![0]
+                                                        .toUpperCase() +
+                                                    expense.expenseTitle!
+                                                        .substring(1) ??
+                                                "",
+                                          ),
+                                          subtitle: Text(
+                                            "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}" ??
+                                                "",
+                                          ),
+                                          trailing: Text(
+                                            "\$${expense.expenseAmount?.toStringAsFixed(2) ?? ""}",
+                                            style: TextStyle(
+                                              color:
+                                                  expense.expenseCategory
+                                                          ?.toLowerCase() ==
+                                                      "income"
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                            ],
                           ),
                         ),
                       ],

@@ -695,11 +695,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             ),
                                           );
                                         } else {
-                                          // context
-                                          //     .read<ExpenseProvider>()
-                                          //     .setBalance(
-                                          //       widget.incomeController.text,
-                                          //     );
                                           context.read<ExpenseProvider>().addExpense(
                                             ExpenseModel(
                                               id: null,

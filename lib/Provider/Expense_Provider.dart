@@ -54,6 +54,8 @@ class ExpenseProvider extends ChangeNotifier {
   double EntertainmentPercentage = 0.0;
   double OtherPercentage = 0.0;
 
+  List<ExpenseModel> ExpenseBreakDown = [];
+
   // Setting Expense Catagory Controller
 
   void changeExpenseCatagory(String ExpenseCatagory) {
@@ -280,5 +282,12 @@ class ExpenseProvider extends ChangeNotifier {
       OtherPercentage = (Other / total) * 100;
       notifyListeners();
     }
+  }
+
+  void selctedCatagoryForBreakDown(String catagory) {
+    ExpenseBreakDown = expenses.where((item) {
+      return item.expenseCategory?.toLowerCase() == catagory.toLowerCase();
+    }).toList();
+    notifyListeners();
   }
 }
