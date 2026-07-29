@@ -55,6 +55,8 @@ class ExpenseProvider extends ChangeNotifier {
   double OtherPercentage = 0.0;
 
   List<ExpenseModel> ExpenseBreakDown = [];
+  String selectedDateFilterForBreakDown = "All";
+  late List<ExpenseModel> ExpenseDatefilteredForBreakDown = List.of(expenses);
 
   // Setting Expense Catagory Controller
 
@@ -290,4 +292,70 @@ class ExpenseProvider extends ChangeNotifier {
     }).toList();
     notifyListeners();
   }
+
+  void DateFilterForBreakDown(String chip) {
+    selectedDateFilterForBreakDown = chip;
+    DateTime now = DateTime.now();
+
+    if (selectedDateFilterForBreakDown == "Today") {
+      ExpenseDatefilteredForBreakDown = expenses.where((expense) {
+        return expense.expenseDate!.day == now.day &&
+            expense.expenseDate!.month == now.month &&
+            expense.expenseDate!.year == now.year;
+      }).toList();
+    } else if (selectedDateFilterForBreakDown == "Week") {
+      DateTime today = DateTime(now.year, now.month, now.day);
+
+      DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
+
+      DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
+
+      ExpenseDatefilteredForBreakDown = expenses.where((expense) {
+        return expense.expenseDate!.compareTo(startOfWeek) >= 0 &&
+            expense.expenseDate!.compareTo(endOfWeek) <= 0;
+      }).toList();
+    } else if (selectedDateFilterForBreakDown == "Month") {
+      ExpenseDatefilteredForBreakDown = expenses.where((expense) {
+        return expense.expenseDate!.month == now.month &&
+            expense.expenseDate!.year == now.year;
+      }).toList();
+    } else if (selectedDateFilterForBreakDown == "Year") {
+      ExpenseDatefilteredForBreakDown = expenses.where((expense) {
+        return expense.expenseDate!.year == now.year;
+      }).toList();
+    }else{
+      ExpenseDatefilteredForBreakDown = expenses;
+    }
+    print(ExpenseDatefilteredForBreakDown.length);
+    notifyListeners();
+  }
+
+  void calculateTotalForBreakDownAfterFiltering() {
+    Food = 0.0;
+    Shopping = 0.0;
+    Travel = 0.0;
+    Entertainment = 0.0;
+    Other = 0.0;
+    ExpenseDatefilteredForBreakDown.map((item) {
+      item.expenseCategory?.toLowerCase() == "food"
+          ? Food += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "shopping"
+          ? Shopping += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "travel"
+          ? Travel += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "entertainment"
+          ? Entertainment += item.expenseAmount!
+          : null;
+      item.expenseCategory?.toLowerCase() == "other"
+          ? Other += item.expenseAmount!
+          : null;
+    }).toList();
+    calculatePercentage();
+    notifyListeners();
+  }
+
+
 }

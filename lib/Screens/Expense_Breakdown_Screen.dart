@@ -97,7 +97,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                             children: provider.DateChips.map((items) {
                               return ActionChip(
                                 backgroundColor:
-                                    provider.selectedDateChipForBreakDown ==
+                                    provider.selectedDateFilterForBreakDown ==
                                         items
                                     ? AppColors.primary
                                     : Colors.white,
@@ -105,28 +105,37 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                   items,
                                   style: TextStyle(
                                     color:
-                                        provider.selectedDateChipForBreakDown ==
+                                        provider.selectedDateFilterForBreakDown ==
                                             items
                                         ? Colors.white
                                         : AppColors.primary,
                                   ),
                                 ),
                                 onPressed: () {
-                                  provider.selctedDateChipForBreakDown(items);
+                                  provider.DateFilterForBreakDown(items);
+                                  provider
+                                      .calculateTotalForBreakDownAfterFiltering();
                                 },
                               );
                             }).toList(),
                           ),
                         ),
                         // Container For Showing The Expense BreakDown using pie chart
-                        provider.expenses.isEmpty ||
-                                provider.expenses.every((item) {
+                        provider.ExpenseDatefilteredForBreakDown.isEmpty ||
+                                provider.ExpenseDatefilteredForBreakDown.every((
+                                  item,
+                                ) {
                                   return item.expenseTitle?.toLowerCase() ==
                                       "income";
                                 })
                             ? Padding(
                                 padding: EdgeInsetsGeometry.all(15.0),
-                                child: Text("No Expenses Yet"),
+                                child: Text("No Expenses Found"),
+                              )
+                            : provider.expenses.isEmpty
+                            ? Padding(
+                                padding: EdgeInsetsGeometry.all(15.0),
+                                child: Text("No Expense Yet"),
                               )
                             : Container(
                                 padding: EdgeInsetsGeometry.all(15.0),
@@ -134,7 +143,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                               ),
 
                         // Showing Catagories by Percentage
-                        Container(
+                          Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           child: Column(
                             children: [
