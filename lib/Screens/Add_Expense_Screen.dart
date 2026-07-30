@@ -545,10 +545,19 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               context,
                                             ).showSnackBar(
                                               SnackBar(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadiusGeometry.only(
+                                                        topLeft:
+                                                            Radius.circular(10),
+                                                        topRight:
+                                                            Radius.circular(10),
+                                                      ),
+                                                ),
+                                                duration: Duration(seconds: 1),
                                                 backgroundColor: Colors.green,
-                                                duration: Duration(seconds: 2),
                                                 content: Text(
-                                                  "Expense Updated",
+                                                  "Expense Updated Successfully",
                                                 ),
                                               ),
                                             );
@@ -586,8 +595,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               context,
                                             ).showSnackBar(
                                               SnackBar(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadiusGeometry.only(
+                                                        topLeft:
+                                                            Radius.circular(10),
+                                                        topRight:
+                                                            Radius.circular(10),
+                                                      ),
+                                                ),
+                                                duration: Duration(seconds: 1),
                                                 backgroundColor: Colors.green,
-                                                duration: Duration(seconds: 2),
                                                 content: Text("Expense Added"),
                                               ),
                                             );
@@ -695,19 +713,23 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             ),
                                           );
                                         } else {
-                                          context.read<ExpenseProvider>().addExpense(
-                                            ExpenseModel(
-                                              id: null,
-                                              expenseTitle: "Income",
-                                              expenseCategory: "income",
-                                              expenseAmount: double.parse(
-                                                widget.incomeController.text,
-                                              ),
-                                              expenseDate: DateTime.now(),
-                                              expenseNote: "",
-                                              createdAt: DateTime.now(),
-                                            ),
-                                          );
+                                          context
+                                              .read<ExpenseProvider>()
+                                              .addExpense(
+                                                ExpenseModel(
+                                                  id: null,
+                                                  expenseTitle: "Income",
+                                                  expenseCategory: "income",
+                                                  expenseAmount: double.parse(
+                                                    widget
+                                                        .incomeController
+                                                        .text,
+                                                  ),
+                                                  expenseDate: DateTime.now(),
+                                                  expenseNote: "",
+                                                  createdAt: DateTime.now(),
+                                                ),
+                                              );
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(

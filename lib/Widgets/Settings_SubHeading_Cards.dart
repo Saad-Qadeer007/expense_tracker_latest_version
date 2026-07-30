@@ -40,8 +40,6 @@ class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
         ),
       ),
       onTap: () {
-        print("pressed");
-        print(widget.SubHeadingTitle);
         widget.SubHeadingTitle.toLowerCase() == "reset data"
             ? showDialog(
                 context: context,
@@ -71,6 +69,22 @@ class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
                       onPressed: () => {
                         context.read<ExpenseProvider>().resetApp(),
                         Navigator.of(context).pop(),
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                            ),
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.red,
+                            content: Text(
+                              "App Reset Successfully",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       },
                       child: Text("Reset"),
                     ),
