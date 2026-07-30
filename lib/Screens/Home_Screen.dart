@@ -295,16 +295,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                   final transactions = provider.searchResults;
 
                                   if (transactions.isEmpty) {
-                                    return Container(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Center(
-                                        child: Text(
-                                          provider.expenses.isEmpty
-                                              ? "No Transactions Yet"
-                                              : "No Transactions Found",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.grey.shade600,
+                                    return Padding(
+                                      padding: EdgeInsetsGeometry.symmetric(
+                                        vertical: 20,
+                                        horizontal: 0,
+                                      ),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Center(
+                                          child: Text(
+                                            provider.expenses.isEmpty
+                                                ? "No Transactions Yet"
+                                                : "No Transactions Found",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey.shade600,
+                                            ),
                                           ),
                                         ),
                                       ),

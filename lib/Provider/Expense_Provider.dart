@@ -106,17 +106,19 @@ class ExpenseProvider extends ChangeNotifier {
       Income += expense.expenseAmount!;
     } else {
       Balance -= expense.expenseAmount!;
-      Expense -= expense.expenseAmount!;
+      Expense += expense.expenseAmount!;
     }
     SaveExpense();
     notifyListeners();
   }
 
   void deleteExpense(int index) {
-    print(expenses[index].expenseTitle);
+    ExpenseModel deletedExpense = expenses[index];
     expenses.removeAt(index);
-    Balance += expenses[index].expenseAmount!;
-    Expense -= expenses[index].expenseAmount!;
+    Balance += deletedExpense.expenseAmount!;
+    Expense -= deletedExpense.expenseAmount!;
+    print(Expense);
+    searchResults = List.from(expenses);
     SaveExpense();
     notifyListeners();
   }
@@ -323,7 +325,7 @@ class ExpenseProvider extends ChangeNotifier {
       ExpenseDatefilteredForBreakDown = expenses.where((expense) {
         return expense.expenseDate!.year == now.year;
       }).toList();
-    }else{
+    } else {
       ExpenseDatefilteredForBreakDown = expenses;
     }
     print(ExpenseDatefilteredForBreakDown.length);
@@ -356,6 +358,4 @@ class ExpenseProvider extends ChangeNotifier {
     calculatePercentage();
     notifyListeners();
   }
-
-
 }
