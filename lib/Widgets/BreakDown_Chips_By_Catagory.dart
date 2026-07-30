@@ -1,7 +1,5 @@
 import 'package:expense_tracker_latest_version/Provider/Expense_Provider.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +46,7 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
                         backgroundColor: Colors.white,
                         radius: 35,
                         child: FaIcon(
-                          FontAwesomeIcons.shoppingBag,
+                          FontAwesomeIcons.bagShopping,
                           color: AppColors.secondary,
                           size: 35,
                         ),
@@ -87,7 +85,7 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1)}",
+                      widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1),
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     SizedBox(width: 10),

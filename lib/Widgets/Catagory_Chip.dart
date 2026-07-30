@@ -29,7 +29,7 @@ class _CatagoryChipState extends State<CatagoryChip> {
               widget.CatagoryTitle.toLowerCase() == "food"
                   ? FaIcon(FontAwesomeIcons.burger, color: Colors.white)
                   : widget.CatagoryTitle.toLowerCase() == "shopping"
-                  ? FaIcon(FontAwesomeIcons.shoppingBag, color: Colors.white)
+                  ? FaIcon(FontAwesomeIcons.bagShopping, color: Colors.white)
                   : widget.CatagoryTitle.toLowerCase() == "travel"
                   ? FaIcon(FontAwesomeIcons.plane, color: Colors.white)
                   : widget.CatagoryTitle.toLowerCase() == "Entertainment"
@@ -37,7 +37,7 @@ class _CatagoryChipState extends State<CatagoryChip> {
                   : FaIcon(FontAwesomeIcons.mobileRetro, color: Colors.white),
               SizedBox(height: 8),
               Text(
-                "${widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1)}",
+                widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1),
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],

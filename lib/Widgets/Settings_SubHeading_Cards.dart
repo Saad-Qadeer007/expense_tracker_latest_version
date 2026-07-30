@@ -92,7 +92,6 @@ class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
                 ),
               )
             : null;
-        print("Ended");
       },
     );
   }

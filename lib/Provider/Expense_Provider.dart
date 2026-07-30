@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:expense_tracker_latest_version/Widgets/Icome_Expense_Card.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/Expense_Model.dart';
@@ -117,7 +115,6 @@ class ExpenseProvider extends ChangeNotifier {
     expenses.removeAt(index);
     Balance += deletedExpense.expenseAmount!;
     Expense -= deletedExpense.expenseAmount!;
-    print(Expense);
     searchResults = List.from(expenses);
     SaveExpense();
     notifyListeners();
@@ -328,7 +325,6 @@ class ExpenseProvider extends ChangeNotifier {
     } else {
       ExpenseDatefilteredForBreakDown = expenses;
     }
-    print(ExpenseDatefilteredForBreakDown.length);
     notifyListeners();
   }
 

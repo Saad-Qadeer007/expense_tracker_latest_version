@@ -27,7 +27,6 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                     onTap: (index) {
                       context.read<ExpenseProvider>().calculateTotal();
                       setState(() {
-                        print(index);
                         provider.selctedBottomNavigationIndex = index;
                       });
                     },
@@ -83,7 +82,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                 ),
                               ),
                               FaIcon(
-                                FontAwesomeIcons.history,
+                                FontAwesomeIcons.clockRotateLeft,
                                 color: Colors.white,
                               ),
                             ],
@@ -282,12 +281,10 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                             expense.expenseTitle![0]
                                                         .toUpperCase() +
                                                     expense.expenseTitle!
-                                                        .substring(1) ??
-                                                "",
+                                                        .substring(1)
                                           ),
                                           subtitle: Text(
-                                            "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}" ??
-                                                "",
+                                            "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}"
                                           ),
                                           trailing: Text(
                                             "\$${expense.expenseAmount?.toStringAsFixed(2) ?? ""}",

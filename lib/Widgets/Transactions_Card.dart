@@ -191,7 +191,6 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   onTap: () {
-                                    print(provider.expenses.length);
                                     showDialog(
                                       context: context,
                                       builder: (context) {
@@ -269,7 +268,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                   leading: CircleAvatar(
                                     backgroundColor: Colors.red,
                                     child: FaIcon(
-                                      FontAwesomeIcons.cancel,
+                                      FontAwesomeIcons.ban,
                                       color: Colors.white,
                                       size: 18,
                                     ),
@@ -308,7 +307,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
                               : widget.catagoryTitle?.toLowerCase() ==
                                     "shopping"
                               ? FaIcon(
-                                  FontAwesomeIcons.shoppingBag,
+                                  FontAwesomeIcons.bagShopping,
                                   color: Colors.white,
                                 )
                               : widget.catagoryTitle?.toLowerCase() == "travel"

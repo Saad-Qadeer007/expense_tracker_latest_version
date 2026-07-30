@@ -37,7 +37,6 @@ class AddExpenseScreen extends StatefulWidget {
 }
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
-  @override
   DateTime? pickedDate;
 
   void passingValuesToFields() {
@@ -80,6 +79,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseProvider>(
       builder: (context, provider, child) {
@@ -115,7 +115,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               ),
                             ),
                             FaIcon(
-                              FontAwesomeIcons.history,
+                              FontAwesomeIcons.clockRotateLeft,
                               color: Colors.white,
                             ),
                           ],
@@ -509,7 +509,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             );
                                           } else if (provider.editMode ==
                                               true) {
-                                            print(pickedDate);
                                             context
                                                 .read<ExpenseProvider>()
                                                 .editExpense(

@@ -28,7 +28,7 @@ class _SettingsState extends State<Settings> {
               onTap: (index) {
                 context.read<ExpenseProvider>().calculateTotal();
                 setState(() {
-                  provider?.selctedBottomNavigationIndex = index;
+                  provider.selctedBottomNavigationIndex = index;
                 });
               },
               type: BottomNavigationBarType.fixed,
@@ -84,7 +84,7 @@ class _SettingsState extends State<Settings> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.history,
+                                    FontAwesomeIcons.clockRotateLeft,
                                     color: Colors.white,
                                   ),
                                 ],
