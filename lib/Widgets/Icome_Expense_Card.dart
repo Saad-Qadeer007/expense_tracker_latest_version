@@ -20,7 +20,7 @@ class _IncomeExpenseCardState extends State<IncomeExpenseCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.card,
+      color: Theme.of(context).cardColor,
       child: Padding(
         padding: EdgeInsetsGeometry.all(15.0),
         child: Row(
@@ -39,7 +39,6 @@ class _IncomeExpenseCardState extends State<IncomeExpenseCard> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
                   ),
                 ),
               ],

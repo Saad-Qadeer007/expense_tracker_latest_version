@@ -91,7 +91,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 children: [
                   ///////////////////////////////////////////////////////////  Appbar for add expense screen
                   Container(
-                    decoration: BoxDecoration(color: AppColors.primary),
+                    decoration: BoxDecoration(color: provider.isDarkMode ? Colors.black : AppColors.primary),
                     padding: EdgeInsetsGeometry.all(15.0),
                     child: Column(
                       children: [
@@ -176,7 +176,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       ? Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: provider.isDarkMode ? Colors.grey.shade900 : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(

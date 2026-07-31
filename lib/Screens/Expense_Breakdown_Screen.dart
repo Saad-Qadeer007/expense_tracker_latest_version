@@ -61,7 +61,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                         Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           width: double.infinity,
-                          decoration: BoxDecoration(color: AppColors.primary),
+                          decoration: BoxDecoration(color: provider.isDarkMode ? Colors.black : AppColors.primary),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -281,7 +281,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                             expense.expenseTitle![0]
                                                         .toUpperCase() +
                                                     expense.expenseTitle!
-                                                        .substring(1)
+                                                        .substring(1),style: TextStyle(color: provider.isDarkMode ? Colors.white : Colors.black),
                                           ),
                                           subtitle: Text(
                                             "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}"

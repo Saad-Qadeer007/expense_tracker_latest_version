@@ -75,8 +75,8 @@ class ExpenseProvider extends ChangeNotifier {
 
   // Setting Dark Mode Controller
   void changeTheme() {
-    print("run");
     isDarkMode = !isDarkMode;
+    SaveExpense();
     notifyListeners();
   }
 
@@ -88,6 +88,7 @@ class ExpenseProvider extends ChangeNotifier {
     pref.setDouble("Balance", Balance);
     pref.setDouble("Income", Income);
     pref.setDouble("Expense", Expense);
+    pref.setBool("isDarkMode", isDarkMode);
     final Expenses = expenses.map((e) => e.toJson()).toList();
     final data = jsonEncode(Expenses);
     pref.setString("Expenses", data);
@@ -99,6 +100,7 @@ class ExpenseProvider extends ChangeNotifier {
     Balance = pref.getDouble("Balance") ?? 0.0;
     Income = pref.getDouble("Income") ?? 0.0;
     Expense = pref.getDouble("Expense") ?? 0.0;
+    isDarkMode = pref.getBool("isDarkMode") ?? false;
     final ExpensesString = pref.getString("Expenses") ?? "[]";
     List<dynamic> jsonList = jsonDecode(ExpensesString);
     expenses = jsonList.map((e) => ExpenseModel.fromJson(e)).toList();

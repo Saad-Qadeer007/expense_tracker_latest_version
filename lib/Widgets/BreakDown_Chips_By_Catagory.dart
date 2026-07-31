@@ -21,9 +21,10 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
     return Consumer<ExpenseProvider>(
       builder: (context, provider, child) {
         return Card(
+          color: Theme.of(context).cardColor,
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: provider.isDarkMode ? Colors.grey.shade900 : AppColors.primary,
               borderRadius: BorderRadius.circular(15),
             ),
             padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 20),

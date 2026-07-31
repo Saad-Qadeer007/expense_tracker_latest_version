@@ -16,7 +16,7 @@ class _ShowBalanceCardState extends State<ShowBalanceCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppThemes().lightTheme.cardColor,
+      color: Theme.of(context).cardColor,
       child: Consumer<ExpenseProvider>(
         builder: (context, expenseProvider, child) {
           return Padding(
@@ -39,7 +39,6 @@ class _ShowBalanceCardState extends State<ShowBalanceCard> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
                       ),
                     ),
                   ],

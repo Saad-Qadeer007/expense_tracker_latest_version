@@ -23,7 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     context.read<ExpenseProvider>().LoadSaveExpense();
-    context.read<ExpenseProvider>().calculateTotal();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ExpenseProvider>().calculateTotal();
+    });
   }
 
   @override
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           padding: EdgeInsetsGeometry.all(10),
                           decoration: BoxDecoration(
-                            color: AppColors.primary,
+                            color: provider.isDarkMode ? Colors.black : AppColors.primary,
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(130),
                               bottomRight: Radius.circular(130),

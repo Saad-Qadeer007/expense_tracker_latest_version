@@ -33,7 +33,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
       builder: (context, provider, child) {
         return widget.expenseTitle?.toLowerCase() == "income"
             ? Card(
-                color: AppColors.card,
+                color: Theme.of(context).cardColor,
                 child: Padding(
                   padding: EdgeInsetsGeometry.all(15.0),
                   child: Row(
@@ -290,7 +290,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
                   );
                 },
                 child: Card(
-                  color: AppColors.card,
+                  color: Theme.of(context).cardColor,
                   child: Padding(
                     padding: EdgeInsetsGeometry.all(15.0),
                     child: Row(

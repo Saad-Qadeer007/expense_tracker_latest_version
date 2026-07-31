@@ -22,79 +22,86 @@ class SettingsSubheadingCards extends StatefulWidget {
 class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 10.0, vertical: 15),
-        width: double.infinity,
-        decoration: BoxDecoration(color: Colors.grey.shade200),
-        child: Row(
-          spacing: 10,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            FaIcon(widget.Icon),
-            Text(
-              widget.SubHeadingTitle,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight(600)),
+    return Consumer<ExpenseProvider>(
+      builder: (context, provider, child) {
+        return InkWell(
+          child: Container(
+            padding: EdgeInsetsGeometry.symmetric(
+              horizontal: 10.0,
+              vertical: 15,
             ),
-          ],
-        ),
-      ),
-      onTap: () {
-        widget.SubHeadingTitle.toLowerCase() == "reset data"
-            ? showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text("Reset App"),
-                  content: Text("Are you sure you want to reset the app?"),
-                  actions: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(8),
-                        ),
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text("Cancel"),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(8),
-                        ),
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () => {
-                        context.read<ExpenseProvider>().resetApp(),
-                        Navigator.of(context).pop(),
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+            width: double.infinity,
+            decoration: BoxDecoration(color: provider.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade200),
+            child: Row(
+              spacing: 10,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                FaIcon(widget.Icon),
+                Text(
+                  widget.SubHeadingTitle,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight(600)),
+                ),
+              ],
+            ),
+          ),
+          onTap: () {
+            widget.SubHeadingTitle.toLowerCase() == "reset data"
+                ? showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Reset App"),
+                      content: Text("Are you sure you want to reset the app?"),
+                      actions: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                            ),
+                            backgroundColor: Colors.green,
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text("Cancel"),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                            ),
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () => {
+                            context.read<ExpenseProvider>().resetApp(),
+                            Navigator.of(context).pop(),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                duration: Duration(seconds: 1),
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  "App Reset Successfully",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
-                            duration: Duration(seconds: 1),
-                            backgroundColor: Colors.red,
-                            content: Text(
-                              "App Reset Successfully",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                          },
+                          child: Text("Reset"),
                         ),
-                      },
-                      child: Text("Reset"),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            : widget.SubHeadingTitle.toLowerCase() == "light theme" ||
-                  widget.SubHeadingTitle.toLowerCase() == "dark theme"
-            ? context.read<ExpenseProvider>().changeTheme()
-            : null;
+                  )
+                : widget.SubHeadingTitle.toLowerCase() == "light theme" ||
+                      widget.SubHeadingTitle.toLowerCase() == "dark theme"
+                ? context.read<ExpenseProvider>().changeTheme()
+                : null;
+          },
+        );
       },
     );
   }
