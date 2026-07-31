@@ -133,12 +133,12 @@ class _SettingsState extends State<Settings> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SettingsSubheadingCards(
-                                SubHeadingTitle: "Light Theme",
-                                Icon: FontAwesomeIcons.sun,
-                              ),
-                              SettingsSubheadingCards(
-                                SubHeadingTitle: "Dark Theme",
-                                Icon: FontAwesomeIcons.moon,
+                                SubHeadingTitle: provider.isDarkMode
+                                    ? "Dark Theme"
+                                    : "Light Theme",
+                                Icon: provider.isDarkMode
+                                    ? FontAwesomeIcons.moon
+                                    : FontAwesomeIcons.sun,
                               ),
                               SettingsSubheadingCards(
                                 SubHeadingTitle: "Currency",

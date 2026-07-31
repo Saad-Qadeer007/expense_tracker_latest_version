@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/Expense_Model.dart';
 
 class ExpenseProvider extends ChangeNotifier {
+  // Theme Controller
+  bool isDarkMode = false;
   List<ExpenseModel> expenses = [];
   String getExpenseCatagory = "food";
   double Balance = 0.0;
@@ -69,6 +71,15 @@ class ExpenseProvider extends ChangeNotifier {
     editMode = true;
     notifyListeners();
   }
+
+
+  // Setting Dark Mode Controller
+  void changeTheme() {
+    print("run");
+    isDarkMode = !isDarkMode;
+    notifyListeners();
+  }
+
 
   // Shared Prefereneces Operations
 

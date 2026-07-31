@@ -91,6 +91,9 @@ class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
                   ],
                 ),
               )
+            : widget.SubHeadingTitle.toLowerCase() == "light theme" ||
+                  widget.SubHeadingTitle.toLowerCase() == "dark theme"
+            ? context.read<ExpenseProvider>().changeTheme()
             : null;
       },
     );
