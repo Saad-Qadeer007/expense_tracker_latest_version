@@ -7,7 +7,6 @@ class ExpenseProvider extends ChangeNotifier {
   // Theme Controller
   bool isDarkMode = false;
   List<ExpenseModel> expenses = [];
-  String getExpenseCatagory = "food";
   double Balance = 0.0;
   double Income = 0.0;
   double Expense = 0.0;
@@ -57,13 +56,6 @@ class ExpenseProvider extends ChangeNotifier {
   List<ExpenseModel> ExpenseBreakDown = [];
   String selectedDateFilterForBreakDown = "All";
   late List<ExpenseModel> ExpenseDatefilteredForBreakDown = List.of(expenses);
-
-  // Setting Expense Catagory Controller
-
-  void changeExpenseCatagory(String ExpenseCatagory) {
-    getExpenseCatagory = ExpenseCatagory.toLowerCase();
-    notifyListeners();
-  }
 
   // Setting Edit Status Controller
 

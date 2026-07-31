@@ -154,9 +154,11 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   onTap: () {
+                                    print(provider.editMode);
                                     context
                                         .read<ExpenseProvider>()
                                         .changeEditStatus();
+                                    Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -173,7 +175,6 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                         ),
                                       ),
                                     );
-                                    Navigator.pop(context);
                                   },
                                 ),
                                 ListTile(

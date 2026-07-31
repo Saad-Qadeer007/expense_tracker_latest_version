@@ -273,11 +273,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                             children: [
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<ExpenseProvider>()
-                                                      .changeExpenseCatagory(
-                                                        "food",
-                                                      );
                                                   setState(() {
                                                     widget.isShowCatagory =
                                                         false;
@@ -293,11 +288,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<ExpenseProvider>()
-                                                      .changeExpenseCatagory(
-                                                        "travel",
-                                                      );
                                                   setState(() {
                                                     widget.isShowCatagory =
                                                         false;
@@ -313,11 +303,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<ExpenseProvider>()
-                                                      .changeExpenseCatagory(
-                                                        "other",
-                                                      );
                                                   setState(() {
                                                     widget.isShowCatagory =
                                                         false;
@@ -333,11 +318,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<ExpenseProvider>()
-                                                      .changeExpenseCatagory(
-                                                        "shopping",
-                                                      );
                                                   setState(() {
                                                     widget.isShowCatagory =
                                                         false;
@@ -353,11 +333,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<ExpenseProvider>()
-                                                      .changeExpenseCatagory(
-                                                        "Entertainment",
-                                                      );
                                                   setState(() {
                                                     widget.isShowCatagory =
                                                         false;
