@@ -18,12 +18,6 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    context.read<ExpenseProvider>().blockShowBreakDownCatgoryCards();
-  }
-  @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseProvider>(
       builder: (context, provider, child) {
@@ -33,9 +27,7 @@ class _SettingsState extends State<Settings> {
               currentIndex: provider.selctedBottomNavigationIndex,
               onTap: (index) {
                 context.read<ExpenseProvider>().calculateTotal();
-                setState(() {
-                  provider.selctedBottomNavigationIndex = index;
-                });
+                context.read<ExpenseProvider>().changeBottomNavigation(index);
               },
               type: BottomNavigationBarType.fixed,
               items: const [
@@ -66,21 +58,20 @@ class _SettingsState extends State<Settings> {
                         Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           width: double.infinity,
-                          decoration: BoxDecoration(color: provider.isDarkMode ? Colors.black : AppColors.primary),
+                          decoration: BoxDecoration(
+                            color: provider.isDarkMode
+                                ? Colors.black
+                                : AppColors.primary,
+                          ),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: FaIcon(
-                                      FontAwesomeIcons.arrowLeft,
-                                      color: Colors.white,
-                                    ),
+                                  FaIcon(
+                                    FontAwesomeIcons.arrowLeft,
+                                    color: Colors.white,
                                   ),
                                   Text(
                                     "Settings",

@@ -20,7 +20,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ExpenseProvider>().showBreakDownCatgoryCards();
+      context.read<ExpenseProvider>().ReviveVisibility();
     });
   }
 
@@ -35,9 +35,9 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                     currentIndex: provider.selctedBottomNavigationIndex,
                     onTap: (index) {
                       context.read<ExpenseProvider>().calculateTotal();
-                      setState(() {
-                        provider.selctedBottomNavigationIndex = index;
-                      });
+                      context.read<ExpenseProvider>().changeBottomNavigation(
+                        index,
+                      );
                     },
                     type: BottomNavigationBarType.fixed,
                     items: const [
@@ -78,15 +78,11 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: FaIcon(
-                                  FontAwesomeIcons.arrowLeft,
-                                  color: Colors.white,
-                                ),
+                              FaIcon(
+                                FontAwesomeIcons.arrowLeft,
+                                color: Colors.white,
                               ),
+
                               Text(
                                 "Expense BreakDown",
                                 style: TextStyle(
@@ -217,9 +213,7 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                         ),
                         // Container For Showing The Catagory BreakDown
                         AnimatedOpacity(
-                          opacity: provider.VisiblityForBreakDownCatgoryCards
-                              ? 1.0
-                              : 0.0,
+                          opacity: provider.visibilityForCards ? 1.0 : 0.0,
                           duration: Duration(milliseconds: 500),
                           child: Container(
                             padding: EdgeInsetsGeometry.all(15.0),

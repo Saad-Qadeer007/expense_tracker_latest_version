@@ -30,7 +30,6 @@ class _MonthlyReportAnalysisScreenState
         selectedYear,
       );
     });
-    context.read<ExpenseProvider>().blockShowBreakDownCatgoryCards();
   }
 
   @override
@@ -43,9 +42,7 @@ class _MonthlyReportAnalysisScreenState
               currentIndex: provider.selctedBottomNavigationIndex,
               onTap: (index) {
                 context.read<ExpenseProvider>().calculateTotal();
-                setState(() {
-                  provider.selctedBottomNavigationIndex = index;
-                });
+                context.read<ExpenseProvider>().changeBottomNavigation(index);
               },
               type: BottomNavigationBarType.fixed,
               items: const [
@@ -85,14 +82,9 @@ class _MonthlyReportAnalysisScreenState
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: FaIcon(
-                                FontAwesomeIcons.arrowLeft,
-                                color: Colors.white,
-                              ),
+                            FaIcon(
+                              FontAwesomeIcons.arrowLeft,
+                              color: Colors.white,
                             ),
                             Text(
                               "Monthly Report",

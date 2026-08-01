@@ -56,15 +56,16 @@ class ExpenseProvider extends ChangeNotifier {
   List<ExpenseModel> ExpenseBreakDown = [];
   String selectedDateFilterForBreakDown = "All";
   late List<ExpenseModel> ExpenseDatefilteredForBreakDown = List.of(expenses);
-  bool VisiblityForBreakDownCatgoryCards = false;
+  bool visibilityForCards = false;
 
-  void showBreakDownCatgoryCards() {
-    VisiblityForBreakDownCatgoryCards = true;
+  void ReviveVisibility() {
+    visibilityForCards = true;
     notifyListeners();
   }
 
-  void blockShowBreakDownCatgoryCards() {
-    VisiblityForBreakDownCatgoryCards = false;
+  void blockVisibility() {
+    print("Run");
+    visibilityForCards = false;
     notifyListeners();
   }
 
@@ -100,6 +101,23 @@ class ExpenseProvider extends ChangeNotifier {
   void changeTheme() {
     isDarkMode = !isDarkMode;
     SaveExpense();
+    notifyListeners();
+  }
+
+  // bottom navigation bar handler
+  void changeBottomNavigation(int index) {
+    selctedBottomNavigationIndex = index;
+
+    if (index == 0) {
+      blockVisibility();
+    }
+    if (index == 2) {
+      blockVisibility();
+    }
+    if (index == 3) {
+      blockVisibility();
+    }
+
     notifyListeners();
   }
 
