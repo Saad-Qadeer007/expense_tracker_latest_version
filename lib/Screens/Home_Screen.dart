@@ -24,9 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     context.read<ExpenseProvider>().LoadSaveExpense();
+    context.read<ExpenseProvider>().blockShowBreakDownCatgoryCards();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ExpenseProvider>().calculateTotal();
     });
+
   }
 
   @override

@@ -87,14 +87,18 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                     color: Colors.green,
                                   ),
                                 )
-                              : Text(
-                                  widget.expenseAmount != null
-                                      ? "- \$${widget.expenseAmount!.toStringAsFixed(2)}"
-                                      : "Null",
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
+                              : AnimatedContainer(
+                                  duration: Duration(milliseconds: 400),
+                                  child: Text(
+                                    widget.expenseAmount != null
+                                        ? "- \$${widget.expenseAmount!.toStringAsFixed(2)}"
+                                        : "Null",
+                                    key: ValueKey(widget.expenseAmount),
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                         ],

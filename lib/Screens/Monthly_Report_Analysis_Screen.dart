@@ -30,6 +30,7 @@ class _MonthlyReportAnalysisScreenState
         selectedYear,
       );
     });
+    context.read<ExpenseProvider>().blockShowBreakDownCatgoryCards();
   }
 
   @override
@@ -160,7 +161,7 @@ class _MonthlyReportAnalysisScreenState
                         ),
                         SizedBox(width: 10),
                         IncomeExpenseCard(
-                          title: "Expenses",
+                          title: "Expense",
                           amount: provider.ExpenseByMonth,
                         ),
                         SizedBox(width: 10),
@@ -266,7 +267,10 @@ class _MonthlyReportAnalysisScreenState
                                     : provider.TopSpendingCatagory.toLowerCase() ==
                                           "entertainment"
                                     ? FontAwesomeIcons.film
-                                    : FontAwesomeIcons.question,
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "other"
+                                    ? FontAwesomeIcons.question
+                                    : FontAwesomeIcons.googleWallet,
                               ),
                               SizedBox(width: 10),
                               Text(
@@ -275,15 +279,22 @@ class _MonthlyReportAnalysisScreenState
                               ),
                               Spacer(),
                               Text(
-                                "\$${provider.TopSpendingCatagory.toLowerCase() == "food"
-                                    ? provider.FoodByMonth.toStringAsFixed(2)
-                                    : provider.TopSpendingCatagory.toLowerCase() == "shopping"
-                                    ? provider.ShoppingByMonth.toStringAsFixed(2)
-                                    : provider.TopSpendingCatagory.toLowerCase() == "travel"
-                                    ? provider.TravelByMonth.toStringAsFixed(2)
-                                    : provider.TopSpendingCatagory.toLowerCase() == "entertainment"
-                                    ? provider.EntertainmentByMonth.toStringAsFixed(2)
-                                    : provider.OtherByMonth.toStringAsFixed(2)}",
+                                provider.TopSpendingCatagory.toLowerCase() ==
+                                        "food"
+                                    ? "\$ ${provider.FoodByMonth.toStringAsFixed(2)}"
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "shopping"
+                                    ? "\$ ${provider.ShoppingByMonth.toStringAsFixed(2)}"
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "travel"
+                                    ? "\$ ${provider.TravelByMonth.toStringAsFixed(2)}"
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "entertainment"
+                                    ? "\$ ${provider.EntertainmentByMonth.toStringAsFixed(2)}"
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "other"
+                                    ? "\$ ${provider.OtherByMonth.toStringAsFixed(2)}"
+                                    : "",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ],
@@ -384,8 +395,8 @@ class _MonthlyReportAnalysisScreenState
                   SizedBox(height: 20),
                   Container(
                     padding: EdgeInsetsGeometry.all(15.0),
-                    child : Text("Monthly Spending Chart (Coming Soon)")
-                  )
+                    child: Text("Monthly Spending Chart (Coming Soon)"),
+                  ),
                 ],
               ),
             ),

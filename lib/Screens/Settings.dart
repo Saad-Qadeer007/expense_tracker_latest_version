@@ -18,6 +18,12 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<ExpenseProvider>().blockShowBreakDownCatgoryCards();
+  }
+  @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseProvider>(
       builder: (context, provider, child) {

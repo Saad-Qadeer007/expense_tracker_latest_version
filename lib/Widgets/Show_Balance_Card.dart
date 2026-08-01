@@ -20,7 +20,7 @@ class _ShowBalanceCardState extends State<ShowBalanceCard> {
       child: Consumer<ExpenseProvider>(
         builder: (context, expenseProvider, child) {
           return Padding(
-            padding: EdgeInsetsGeometry.all(15),
+            padding: EdgeInsets.all(15),
             child: Row(
               children: [
                 Column(
@@ -34,11 +34,15 @@ class _ShowBalanceCardState extends State<ShowBalanceCard> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      "\$${expenseProvider.Balance.toStringAsFixed(2)}",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 400),
+                      child: Text(
+                        "\$${expenseProvider.Balance.toStringAsFixed(2)}",
+                        key: ValueKey(expenseProvider.Balance),
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

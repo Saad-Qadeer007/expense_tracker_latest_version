@@ -16,6 +16,15 @@ class BreakDownScreen extends StatefulWidget {
 
 class _BreakDownScreenState extends State<BreakDownScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ExpenseProvider>().showBreakDownCatgoryCards();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseProvider>(
       builder: (context, provider, child) {
@@ -61,7 +70,11 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                         Container(
                           padding: EdgeInsetsGeometry.all(15.0),
                           width: double.infinity,
-                          decoration: BoxDecoration(color: provider.isDarkMode ? Colors.black : AppColors.primary),
+                          decoration: BoxDecoration(
+                            color: provider.isDarkMode
+                                ? Colors.black
+                                : AppColors.primary,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -203,25 +216,33 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                           ),
                         ),
                         // Container For Showing The Catagory BreakDown
-                        Container(
-                          padding: EdgeInsetsGeometry.all(15.0),
-                          child: GridView.count(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1,
-                            children: provider.ExpenseCatagoryTitle.map((item) {
-                              return InkWell(
-                                onTap: () {
-                                  provider.selctedCatagoryForBreakDown(item);
-                                },
-                                child: BreakdownChipsByCatagory(
-                                  CatagoryTitle: item,
-                                ),
-                              );
-                            }).toList(),
+                        AnimatedOpacity(
+                          opacity: provider.VisiblityForBreakDownCatgoryCards
+                              ? 1.0
+                              : 0.0,
+                          duration: Duration(milliseconds: 500),
+                          child: Container(
+                            padding: EdgeInsetsGeometry.all(15.0),
+                            child: GridView.count(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 1,
+                              children: provider.ExpenseCatagoryTitle.map((
+                                item,
+                              ) {
+                                return InkWell(
+                                  onTap: () {
+                                    provider.selctedCatagoryForBreakDown(item);
+                                  },
+                                  child: BreakdownChipsByCatagory(
+                                    CatagoryTitle: item,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
 
@@ -279,12 +300,18 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                           ),
                                           title: Text(
                                             expense.expenseTitle![0]
-                                                        .toUpperCase() +
-                                                    expense.expenseTitle!
-                                                        .substring(1),style: TextStyle(color: provider.isDarkMode ? Colors.white : Colors.black),
+                                                    .toUpperCase() +
+                                                expense.expenseTitle!.substring(
+                                                  1,
+                                                ),
+                                            style: TextStyle(
+                                              color: provider.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                           ),
                                           subtitle: Text(
-                                            "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}"
+                                            "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}",
                                           ),
                                           trailing: Text(
                                             "\$${expense.expenseAmount?.toStringAsFixed(2) ?? ""}",

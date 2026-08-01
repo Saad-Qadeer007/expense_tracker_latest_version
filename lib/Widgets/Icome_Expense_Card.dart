@@ -34,16 +34,20 @@ class _IncomeExpenseCardState extends State<IncomeExpenseCard> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
-                Text(
-                  "Rs ${widget.amount.toString()}",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                AnimatedSwitcher(
+                  duration: Duration(milliseconds: 400),
+                  child: Text(
+                    "\$${widget.amount.toStringAsFixed(2)}",
+                    key: ValueKey(widget.amount),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
             Spacer(),
             widget.title == "Income"
                 ? FaIcon(FontAwesomeIcons.arrowUp, color: Colors.green)
-                : widget.title.toLowerCase() == "expenses"
+                : widget.title.toLowerCase() == "expense"
                 ? FaIcon(FontAwesomeIcons.arrowDown, color: Colors.red)
                 : FaIcon(FontAwesomeIcons.wallet, color: AppColors.primary),
           ],

@@ -56,6 +56,17 @@ class ExpenseProvider extends ChangeNotifier {
   List<ExpenseModel> ExpenseBreakDown = [];
   String selectedDateFilterForBreakDown = "All";
   late List<ExpenseModel> ExpenseDatefilteredForBreakDown = List.of(expenses);
+  bool VisiblityForBreakDownCatgoryCards = false;
+
+  void showBreakDownCatgoryCards() {
+    VisiblityForBreakDownCatgoryCards = true;
+    notifyListeners();
+  }
+
+  void blockShowBreakDownCatgoryCards() {
+    VisiblityForBreakDownCatgoryCards = false;
+    notifyListeners();
+  }
 
   // Monthly report
   DateTime? MonthGetter;
@@ -429,13 +440,26 @@ class ExpenseProvider extends ChangeNotifier {
         EntertainmentByMonth +
         OtherByMonth;
 
-    AverageExpenseByMonth = total / TotalNumbersOfTransactionsByMonth;
+    if (total == 0.0) {
+      AverageExpenseByMonth = 0.0;
+    } else {
+      AverageExpenseByMonth = total / TotalNumbersOfTransactionsByMonth;
+    }
 
-    FoodPercentageByMonth = (FoodByMonth / total) * 100;
-    ShoppingPercentageByMonth = (ShoppingByMonth / total) * 100;
-    TravelPercentageByMonth = (TravelByMonth / total) * 100;
-    EntertainmentPercentageByMonth = (EntertainmentByMonth / total) * 100;
-    OtherPercentageByMonth = (OtherByMonth / total) * 100;
+    if (total == 0.0) {
+      FoodPercentageByMonth = 0.0;
+      ShoppingPercentageByMonth = 0.0;
+      TravelPercentageByMonth = 0.0;
+      EntertainmentPercentageByMonth = 0.0;
+      OtherPercentageByMonth = 0.0;
+    } else {
+      FoodPercentageByMonth = (FoodByMonth / total) * 100;
+      ShoppingPercentageByMonth = (ShoppingByMonth / total) * 100;
+      TravelPercentageByMonth = (TravelByMonth / total) * 100;
+      EntertainmentPercentageByMonth = (EntertainmentByMonth / total) * 100;
+      OtherPercentageByMonth = (OtherByMonth / total) * 100;
+    }
+
     if (FoodByMonth > ShoppingByMonth &&
         FoodByMonth > TravelByMonth &&
         FoodByMonth > EntertainmentByMonth &&
@@ -456,8 +480,13 @@ class ExpenseProvider extends ChangeNotifier {
         EntertainmentByMonth > TravelByMonth &&
         EntertainmentByMonth > OtherByMonth) {
       TopSpendingCatagory = "Entertainment";
-    } else {
+    } else if (OtherByMonth > FoodByMonth &&
+        OtherByMonth > ShoppingByMonth &&
+        OtherByMonth > TravelByMonth &&
+        OtherByMonth > EntertainmentByMonth) {
       TopSpendingCatagory = "Other";
+    } else {
+      TopSpendingCatagory = "No Spending Yet";
     }
 
     if (FoodByMonth < ShoppingByMonth &&
