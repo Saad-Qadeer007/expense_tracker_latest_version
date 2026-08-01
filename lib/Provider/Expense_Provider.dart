@@ -57,6 +57,22 @@ class ExpenseProvider extends ChangeNotifier {
   String selectedDateFilterForBreakDown = "All";
   late List<ExpenseModel> ExpenseDatefilteredForBreakDown = List.of(expenses);
 
+  // Monthly report
+  DateTime? MonthGetter;
+  double ExpenseByMonth = 0.00;
+  double IncomeByMonth = 0.00;
+  double SavingByMonth = 0.00;
+  double FoodByMonth = 0.00;
+  double ShoppingByMonth = 0.00;
+  double TravelByMonth = 0.00;
+  double EntertainmentByMonth = 0.00;
+  double OtherByMonth = 0.00;
+  double FoodPercentageByMonth = 0.00;
+  double ShoppingPercentageByMonth = 0.00;
+  double TravelPercentageByMonth = 0.00;
+  double EntertainmentPercentageByMonth = 0.00;
+  double OtherPercentageByMonth = 0.00;
+
   // Setting Edit Status Controller
 
   void changeEditStatus() {
@@ -64,14 +80,12 @@ class ExpenseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   // Setting Dark Mode Controller
   void changeTheme() {
     isDarkMode = !isDarkMode;
     SaveExpense();
     notifyListeners();
   }
-
 
   // Shared Prefereneces Operations
 
@@ -357,6 +371,57 @@ class ExpenseProvider extends ChangeNotifier {
           : null;
     }).toList();
     calculatePercentage();
+    notifyListeners();
+  }
+
+  //   Handling the Monthly Report Screen
+  void GetExpenseByMonthAndYear(String month, String year) {
+    IncomeByMonth = 0.0;
+    ExpenseByMonth = 0.0;
+    SavingByMonth = 0.0;
+    FoodByMonth = 0.0;
+    ShoppingByMonth = 0.0;
+    TravelByMonth = 0.0;
+    EntertainmentByMonth = 0.0;
+    OtherByMonth = 0.0;
+    FoodPercentageByMonth = 0.0;
+    ShoppingPercentageByMonth = 0.0;
+    TravelPercentageByMonth = 0.0;
+    EntertainmentPercentageByMonth = 0.0;
+    OtherPercentageByMonth = 0.0;
+    expenses.map((item) {
+      if (item.expenseDate?.month == int.parse(month) &&
+          item.expenseDate?.year == int.parse(year)) {
+        if (item.expenseCategory?.toLowerCase() == "income") {
+          IncomeByMonth += item.expenseAmount!;
+        } else {
+          if (item.expenseCategory?.toLowerCase() == "food") {
+            FoodByMonth += item.expenseAmount!;
+          } else if (item.expenseCategory?.toLowerCase() == "shopping") {
+            ShoppingByMonth += item.expenseAmount!;
+          } else if (item.expenseCategory?.toLowerCase() == "travel") {
+            TravelByMonth += item.expenseAmount!;
+          } else if (item.expenseCategory?.toLowerCase() == "entertainment") {
+            EntertainmentByMonth += item.expenseAmount!;
+          } else {
+            OtherByMonth += item.expenseAmount!;
+          }
+          ExpenseByMonth += item.expenseAmount!;
+        }
+      }
+    }).toList();
+    SavingByMonth = IncomeByMonth - ExpenseByMonth;
+    double total =
+        FoodByMonth +
+        ShoppingByMonth +
+        TravelByMonth +
+        EntertainmentByMonth +
+        OtherByMonth;
+    FoodPercentageByMonth = (FoodByMonth / total) * 100;
+    ShoppingPercentageByMonth = (ShoppingByMonth / total) * 100;
+    TravelPercentageByMonth = (TravelByMonth / total) * 100;
+    EntertainmentPercentageByMonth = (EntertainmentByMonth / total) * 100;
+    OtherPercentageByMonth = (OtherByMonth / total) * 100;
     notifyListeners();
   }
 }
