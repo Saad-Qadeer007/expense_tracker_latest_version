@@ -175,6 +175,13 @@ class _MonthlyReportAnalysisScreenState
                   SizedBox(height: 20),
 
                   //   Container for Transactions Catagory with percentage
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Expense BreakDown",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                   Container(
                     padding: EdgeInsetsGeometry.all(15.0),
                     child: Column(
@@ -231,6 +238,154 @@ class _MonthlyReportAnalysisScreenState
                       ],
                     ),
                   ),
+                  SizedBox(height: 20),
+                  Card(
+                    color: Theme.of(context).cardColor,
+                    child: Container(
+                      padding: EdgeInsetsGeometry.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Top Spending Category",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              FaIcon(
+                                provider.TopSpendingCatagory.toLowerCase() ==
+                                        "food"
+                                    ? FontAwesomeIcons.utensils
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "shopping"
+                                    ? FontAwesomeIcons.shoppingCart
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "travel"
+                                    ? FontAwesomeIcons.plane
+                                    : provider.TopSpendingCatagory.toLowerCase() ==
+                                          "entertainment"
+                                    ? FontAwesomeIcons.film
+                                    : FontAwesomeIcons.question,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                provider.TopSpendingCatagory,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Spacer(),
+                              Text(
+                                "\$${provider.TopSpendingCatagory.toLowerCase() == "food"
+                                    ? provider.FoodByMonth.toStringAsFixed(2)
+                                    : provider.TopSpendingCatagory.toLowerCase() == "shopping"
+                                    ? provider.ShoppingByMonth.toStringAsFixed(2)
+                                    : provider.TopSpendingCatagory.toLowerCase() == "travel"
+                                    ? provider.TravelByMonth.toStringAsFixed(2)
+                                    : provider.TopSpendingCatagory.toLowerCase() == "entertainment"
+                                    ? provider.EntertainmentByMonth.toStringAsFixed(2)
+                                    : provider.OtherByMonth.toStringAsFixed(2)}",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Card(
+                    color: Theme.of(context).cardColor,
+                    child: Container(
+                      padding: EdgeInsetsGeometry.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Quick Statistics",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(height: 10),
+                          Divider(),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total Transactions: ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "${provider.TotalNumbersOfTransactionsByMonth}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Average Expense: ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "\$${provider.AverageExpenseByMonth.toStringAsFixed(2)}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Highest Expense: ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "\$${provider.TopSpendingCatagory.toLowerCase() == "food"
+                                        ? provider.FoodByMonth.toStringAsFixed(2)
+                                        : provider.TopSpendingCatagory.toLowerCase() == "shopping"
+                                        ? provider.ShoppingByMonth.toStringAsFixed(2)
+                                        : provider.TopSpendingCatagory.toLowerCase() == "travel"
+                                        ? provider.TravelByMonth.toStringAsFixed(2)
+                                        : provider.TopSpendingCatagory.toLowerCase() == "entertainment"
+                                        ? provider.EntertainmentByMonth.toStringAsFixed(2)
+                                        : provider.OtherByMonth.toStringAsFixed(2)}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Lowest Expense: ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "\$${provider.LowestSpendingAmount.toStringAsFixed(2)} | ${provider.LowestSpendingCatagory}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsetsGeometry.all(15.0),
+                    child : Text("Monthly Spending Chart (Coming Soon)")
+                  )
                 ],
               ),
             ),

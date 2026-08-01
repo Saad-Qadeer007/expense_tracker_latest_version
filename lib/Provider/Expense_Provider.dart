@@ -72,6 +72,11 @@ class ExpenseProvider extends ChangeNotifier {
   double TravelPercentageByMonth = 0.00;
   double EntertainmentPercentageByMonth = 0.00;
   double OtherPercentageByMonth = 0.00;
+  String TopSpendingCatagory = "No Spending Yet";
+  int TotalNumbersOfTransactionsByMonth = 0;
+  String LowestSpendingCatagory = "No Spending Yet";
+  double LowestSpendingAmount = 0.00;
+  double AverageExpenseByMonth = 0.00;
 
   // Setting Edit Status Controller
 
@@ -376,6 +381,11 @@ class ExpenseProvider extends ChangeNotifier {
 
   //   Handling the Monthly Report Screen
   void GetExpenseByMonthAndYear(String month, String year) {
+    TotalNumbersOfTransactionsByMonth = 0;
+    LowestSpendingAmount = 0.0;
+    TopSpendingCatagory = "No Spending Yet";
+    LowestSpendingCatagory = "No Spending Yet";
+    AverageExpenseByMonth = 0.0;
     IncomeByMonth = 0.0;
     ExpenseByMonth = 0.0;
     SavingByMonth = 0.0;
@@ -395,6 +405,7 @@ class ExpenseProvider extends ChangeNotifier {
         if (item.expenseCategory?.toLowerCase() == "income") {
           IncomeByMonth += item.expenseAmount!;
         } else {
+          TotalNumbersOfTransactionsByMonth++;
           if (item.expenseCategory?.toLowerCase() == "food") {
             FoodByMonth += item.expenseAmount!;
           } else if (item.expenseCategory?.toLowerCase() == "shopping") {
@@ -417,11 +428,67 @@ class ExpenseProvider extends ChangeNotifier {
         TravelByMonth +
         EntertainmentByMonth +
         OtherByMonth;
+
+    AverageExpenseByMonth = total / TotalNumbersOfTransactionsByMonth;
+
     FoodPercentageByMonth = (FoodByMonth / total) * 100;
     ShoppingPercentageByMonth = (ShoppingByMonth / total) * 100;
     TravelPercentageByMonth = (TravelByMonth / total) * 100;
     EntertainmentPercentageByMonth = (EntertainmentByMonth / total) * 100;
     OtherPercentageByMonth = (OtherByMonth / total) * 100;
+    if (FoodByMonth > ShoppingByMonth &&
+        FoodByMonth > TravelByMonth &&
+        FoodByMonth > EntertainmentByMonth &&
+        FoodByMonth > OtherByMonth) {
+      TopSpendingCatagory = "Food";
+    } else if (ShoppingByMonth > FoodByMonth &&
+        ShoppingByMonth > TravelByMonth &&
+        ShoppingByMonth > EntertainmentByMonth &&
+        ShoppingByMonth > OtherByMonth) {
+      TopSpendingCatagory = "Shopping";
+    } else if (TravelByMonth > FoodByMonth &&
+        TravelByMonth > ShoppingByMonth &&
+        TravelByMonth > EntertainmentByMonth &&
+        TravelByMonth > OtherByMonth) {
+      TopSpendingCatagory = "Travel";
+    } else if (EntertainmentByMonth > FoodByMonth &&
+        EntertainmentByMonth > ShoppingByMonth &&
+        EntertainmentByMonth > TravelByMonth &&
+        EntertainmentByMonth > OtherByMonth) {
+      TopSpendingCatagory = "Entertainment";
+    } else {
+      TopSpendingCatagory = "Other";
+    }
+
+    if (FoodByMonth < ShoppingByMonth &&
+        FoodByMonth < TravelByMonth &&
+        FoodByMonth < EntertainmentByMonth &&
+        FoodByMonth < OtherByMonth) {
+      LowestSpendingCatagory = "Shopping";
+      LowestSpendingAmount = ShoppingByMonth;
+    } else if (ShoppingByMonth < FoodByMonth &&
+        ShoppingByMonth < TravelByMonth &&
+        ShoppingByMonth < EntertainmentByMonth &&
+        ShoppingByMonth < OtherByMonth) {
+      LowestSpendingAmount = ShoppingByMonth;
+      LowestSpendingCatagory = "Shopping";
+    } else if (TravelByMonth < FoodByMonth &&
+        TravelByMonth < ShoppingByMonth &&
+        TravelByMonth < EntertainmentByMonth &&
+        TravelByMonth < OtherByMonth) {
+      LowestSpendingAmount = TravelByMonth;
+      LowestSpendingCatagory = "Travel";
+    } else if (ShoppingByMonth < FoodByMonth &&
+        ShoppingByMonth < TravelByMonth &&
+        ShoppingByMonth < EntertainmentByMonth &&
+        ShoppingByMonth < OtherByMonth) {
+      LowestSpendingAmount = ShoppingByMonth;
+      LowestSpendingCatagory = "Shopping";
+    } else {
+      LowestSpendingAmount = OtherByMonth;
+      LowestSpendingCatagory = "Other";
+    }
+
     notifyListeners();
   }
 }
