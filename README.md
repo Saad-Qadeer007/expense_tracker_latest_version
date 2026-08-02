@@ -51,11 +51,44 @@ Designed with clean architecture, responsive UI, and reusable components, this p
 
 > Replace these with your own screenshots.
 
-| Home | Add Expense |
-|------|-------------|
-| Screenshot | Screenshot |
+Home Screen : 
 
-| Breakdown | Monthly Report |
+Dark Mode : 
+
+<img width="227" height="413" alt="image" src="https://github.com/user-attachments/assets/82ae8778-25ba-47b1-8198-e05519b9b0b6" />
+
+Light Mode : 
+
+<img width="228" height="422" alt="image" src="https://github.com/user-attachments/assets/b396a4eb-2e80-4de4-ae1d-f501500772f3" />
+
+BreakDown Screen : 
+
+Dark Mode : 
+
+<img width="215" height="417" alt="image" src="https://github.com/user-attachments/assets/ac908b99-0214-4b62-9394-330e5627b593" />
+<img width="222" height="378" alt="image" src="https://github.com/user-attachments/assets/6da3cfa0-a4e4-4bf2-8a65-5c22d848650e" />
+
+
+Light Mode : 
+
+<img width="224" height="417" alt="image" src="https://github.com/user-attachments/assets/aaf2381a-5110-4b54-9bdf-35d009df8c00" />
+<img width="239" height="419" alt="image" src="https://github.com/user-attachments/assets/e2fc858b-9b02-4542-8e97-a3f64e2791c7" />
+
+
+
+Monthly Report Screen: 
+
+Dark Mode : 
+
+<img width="224" height="413" alt="image" src="https://github.com/user-attachments/assets/50128e23-4d74-4055-8331-4eeda8d0a3f8" />
+<img width="236" height="350" alt="image" src="https://github.com/user-attachments/assets/1c7bbc8a-537f-4a36-aae2-510162f59168" />
+
+
+Light Mode : 
+
+
+
+
 |-----------|----------------|
 | Screenshot | Screenshot |
 
@@ -189,4 +222,4 @@ It motivates me to continue building and sharing more Flutter projects.
 
 ---
 
-> Built with ❤️ using Flutter.<img width="955" height="502" alt="image" src="https://github.com/user-attachments/assets/c2f7ee7f-e9f0-4b1c-a07c-9cb637201683" />
+> Built with ❤️
