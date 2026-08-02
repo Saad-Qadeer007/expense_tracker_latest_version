@@ -61,6 +61,8 @@ Light Mode :
 
 <img width="228" height="422" alt="image" src="https://github.com/user-attachments/assets/b396a4eb-2e80-4de4-ae1d-f501500772f3" />
 
+
+
 BreakDown Screen : 
 
 Dark Mode : 
@@ -76,6 +78,8 @@ Light Mode :
 
 
 
+
+
 Monthly Report Screen: 
 
 Dark Mode : 
@@ -87,12 +91,25 @@ Dark Mode :
 Light Mode : 
 
 
+<img width="215" height="419" alt="image" src="https://github.com/user-attachments/assets/aaf5fd38-4d23-4b13-92aa-58c4475cdef7" />
+<img width="217" height="355" alt="image" src="https://github.com/user-attachments/assets/9df495f3-b19f-4d4b-96e9-c496a83000cb" />
 
 
-|-----------|----------------|
-| Screenshot | Screenshot |
+Settings : 
 
----
+
+Dark Mode : 
+
+<img width="214" height="417" alt="image" src="https://github.com/user-attachments/assets/4482bf98-9b0a-4089-b61b-bb11a8648218" />
+
+
+
+Light Mode : 
+
+
+<img width="221" height="416" alt="image" src="https://github.com/user-attachments/assets/497a8091-545e-4cd2-981d-be8eed011c96" />
+
+
 
 # 🛠️ Built With
 
