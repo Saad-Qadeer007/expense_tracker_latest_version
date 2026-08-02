@@ -104,7 +104,7 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
                                 "entertainment"
                           ? "\$ ${provider.Entertainment.toStringAsFixed(2)}"
                           : "\$ ${provider.Other.toStringAsFixed(2)}",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],
                 ),

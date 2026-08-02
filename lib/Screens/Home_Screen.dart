@@ -305,6 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           horizontal: 0,
                                         ),
                                         child: Container(
+                                          height: 150,
                                           padding: const EdgeInsets.all(10),
                                           child: Center(
                                             child: Text(
