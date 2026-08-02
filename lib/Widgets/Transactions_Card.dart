@@ -2,9 +2,9 @@ import 'package:expense_tracker_latest_version/Screens/Add_Expense_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import '../Provider/Expense_Provider.dart';
-import '../Ultilities/App_Colors.dart';
+import '../Utilities/App_Colors.dart';
+
 
 class TransactionsCard extends StatefulWidget {
   String? expenseTitle;
@@ -158,7 +158,6 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                   onTap: () {
-                                    print(provider.editMode);
                                     context
                                         .read<ExpenseProvider>()
                                         .changeEditStatus();

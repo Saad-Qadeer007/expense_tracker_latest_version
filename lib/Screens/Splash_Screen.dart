@@ -1,6 +1,6 @@
 import 'package:expense_tracker_latest_version/Screens/Home_Screen.dart';
 import 'package:flutter/material.dart';
-import '../Ultilities/App_Colors.dart';
+import '../Utilities/App_Colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,9 +1,8 @@
 import 'package:expense_tracker_latest_version/Screens/Splash_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'Provider/Expense_Provider.dart';
-import 'Ultilities/App_Themes.dart';
+import 'Utilities/App_Themes.dart';
 
 void main() {
   runApp(

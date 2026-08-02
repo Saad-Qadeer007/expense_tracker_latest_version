@@ -1,10 +1,6 @@
 import 'package:expense_tracker_latest_version/Provider/Expense_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../Ultilities/App_Colors.dart';
-import '../Ultilities/App_Themes.dart';
-
 class ShowBalanceCard extends StatefulWidget {
   const ShowBalanceCard({super.key});
 

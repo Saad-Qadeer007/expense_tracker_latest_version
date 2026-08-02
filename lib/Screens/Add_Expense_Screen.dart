@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../Model/Expense_Model.dart';
 import '../Provider/Expense_Provider.dart';
-import '../Ultilities/App_Colors.dart';
+import '../Utilities//App_Colors.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   String gettedExpenseTitleFromEditScreen;
@@ -25,11 +25,11 @@ class AddExpenseScreen extends StatefulWidget {
     required this.index,
   });
 
-  bool isShowCatagory = false;
+  bool isShowCategory = false;
   TextEditingController dateController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController amountController = TextEditingController();
-  TextEditingController catagoryController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController incomeController = TextEditingController();
 
@@ -41,7 +41,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   DateTime? pickedDate;
 
   void passingValuesToFields() {
-    print(widget.gettedExpenseAmountFromEditScreen.runtimeType);
     widget.dateController.text = widget.gettedExpenseDateFromEditScreen == null
         ? ""
         : "${widget.gettedExpenseDateFromEditScreen?.day}/${widget.gettedExpenseDateFromEditScreen?.month}/${widget.gettedExpenseDateFromEditScreen?.year}";
@@ -50,7 +49,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         widget.gettedExpenseAmountFromEditScreen == 0.00
         ? ""
         : widget.gettedExpenseAmountFromEditScreen.toString();
-    widget.catagoryController.text = widget.gettedExpenseCatagoryFromEditScreen;
+    widget.categoryController.text = widget.gettedExpenseCatagoryFromEditScreen;
   }
 
   @override
@@ -92,7 +91,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           onTap: () {
             FocusScope.of(context).unfocus();
             setState(() {
-              widget.isShowCatagory = false;
+              widget.isShowCategory = false;
             });
           },
           child: Scaffold(
@@ -253,14 +252,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                //// TextField for expense catagory
+                                //// TextField for expense category
                                 Container(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Catagory :",
+                                        "Category :",
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -270,15 +269,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                       InkWell(
                                         onTap: () {
                                           setState(() {
-                                            widget.isShowCatagory =
-                                                !widget.isShowCatagory;
+                                            widget.isShowCategory =
+                                                !widget.isShowCategory;
                                           });
                                         },
                                         child: TextField(
-                                          controller: widget.catagoryController,
+                                          controller: widget.categoryController,
                                           enabled: false,
                                           decoration: InputDecoration(
-                                            hintText: "Select Catagory",
+                                            hintText: "Select Category",
                                             border: OutlineInputBorder(),
                                             suffixIcon: Icon(
                                               Icons.arrow_drop_down,
@@ -289,16 +288,16 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                       ),
                                       SizedBox(height: 10),
 
-                                      widget.isShowCatagory
+                                      widget.isShowCategory
                                           ? Wrap(
                                                   children: [
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          widget.isShowCatagory =
+                                                          widget.isShowCategory =
                                                               false;
                                                           widget
-                                                                  .catagoryController
+                                                                  .categoryController
                                                                   .text =
                                                               "Food";
                                                         });
@@ -310,10 +309,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          widget.isShowCatagory =
+                                                          widget.isShowCategory =
                                                               false;
                                                           widget
-                                                                  .catagoryController
+                                                                  .categoryController
                                                                   .text =
                                                               "Travel";
                                                         });
@@ -325,10 +324,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          widget.isShowCatagory =
+                                                          widget.isShowCategory =
                                                               false;
                                                           widget
-                                                                  .catagoryController
+                                                                  .categoryController
                                                                   .text =
                                                               "Other";
                                                         });
@@ -340,10 +339,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          widget.isShowCatagory =
+                                                          widget.isShowCategory =
                                                               false;
                                                           widget
-                                                                  .catagoryController
+                                                                  .categoryController
                                                                   .text =
                                                               "Shopping";
                                                         });
@@ -356,10 +355,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          widget.isShowCatagory =
+                                                          widget.isShowCategory =
                                                               false;
                                                           widget
-                                                                  .catagoryController
+                                                                  .categoryController
                                                                   .text =
                                                               "Entertainment";
                                                         });
@@ -465,7 +464,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     .text
                                                     .isEmpty ||
                                                 widget
-                                                    .catagoryController
+                                                    .categoryController
                                                     .text
                                                     .isEmpty ||
                                                 widget
@@ -499,7 +498,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                           .text,
                                                     ) <=
                                                     0) {
-                                              print("run");
                                               ScaffoldMessenger.of(
                                                 context,
                                               ).showSnackBar(
@@ -549,7 +547,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                           .titleController
                                                           .text,
                                                       expenseCategory: widget
-                                                          .catagoryController
+                                                          .categoryController
                                                           .text,
                                                       expenseAmount:
                                                           double.parse(
@@ -599,7 +597,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               );
                                               widget.titleController.clear();
                                               widget.amountController.clear();
-                                              widget.catagoryController.clear();
+                                              widget.categoryController.clear();
                                               widget.noteController.clear();
                                               widget.dateController.clear();
                                               Navigator.pop(context);
@@ -613,7 +611,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                           .titleController
                                                           .text,
                                                       expenseCategory: widget
-                                                          .catagoryController
+                                                          .categoryController
                                                           .text,
                                                       expenseAmount:
                                                           double.parse(
@@ -656,7 +654,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                               );
                                               widget.titleController.clear();
                                               widget.amountController.clear();
-                                              widget.catagoryController.clear();
+                                              widget.categoryController.clear();
                                               widget.noteController.clear();
                                               widget.dateController.clear();
                                             }

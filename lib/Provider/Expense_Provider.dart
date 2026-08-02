@@ -64,7 +64,6 @@ class ExpenseProvider extends ChangeNotifier {
   }
 
   void blockVisibility() {
-    print("Run");
     visibilityForCards = false;
     notifyListeners();
   }

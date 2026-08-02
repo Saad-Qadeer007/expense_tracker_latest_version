@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:provider/provider.dart";
 import 'package:intl/intl.dart';
-import "../Ultilities/App_Colors.dart";
+import '../Utilities/App_Colors.dart';
 
 class MonthlyReportAnalysisScreen extends StatefulWidget {
   const MonthlyReportAnalysisScreen({super.key});

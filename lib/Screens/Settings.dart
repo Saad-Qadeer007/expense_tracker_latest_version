@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/Expense_Provider.dart';
-import '../Ultilities/App_Colors.dart';
+import '../Utilities/App_Colors.dart';
 import 'Home_Screen.dart';
 
 class Settings extends StatefulWidget {
