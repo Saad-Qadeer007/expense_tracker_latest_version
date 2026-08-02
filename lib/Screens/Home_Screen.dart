@@ -118,17 +118,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       size: 28,
                                       color: Colors.white,
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        context
-                                            .read<ExpenseProvider>()
-                                            .resetApp();
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.bell,
-                                        size: 28,
-                                        color: Colors.white,
-                                      ),
+                                    FaIcon(
+                                      FontAwesomeIcons.bell,
+                                      size: 28,
+                                      color: Colors.white,
                                     ),
                                   ],
                                 ),

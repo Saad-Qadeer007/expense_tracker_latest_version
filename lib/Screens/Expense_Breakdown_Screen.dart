@@ -313,6 +313,11 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                                           ),
                                           subtitle: Text(
                                             "${expense.expenseDate?.year}/${expense.expenseDate?.month}/${expense.expenseDate?.day}",
+                                            style: TextStyle(
+                                              color: provider.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                           ),
                                           trailing: Text(
                                             "\$${expense.expenseAmount?.toStringAsFixed(2) ?? ""}",

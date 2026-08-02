@@ -1,5 +1,6 @@
 import 'package:expense_tracker_latest_version/Widgets/Catagory_Chip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -290,85 +291,95 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
                                       widget.isShowCatagory
                                           ? Wrap(
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.isShowCatagory =
-                                                          false;
-                                                      widget
-                                                              .catagoryController
-                                                              .text =
-                                                          "Food";
-                                                    });
-                                                  },
-                                                  child: CatagoryChip(
-                                                    CatagoryTitle: "food",
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          widget.isShowCatagory =
+                                                              false;
+                                                          widget
+                                                                  .catagoryController
+                                                                  .text =
+                                                              "Food";
+                                                        });
+                                                      },
+                                                      child: CatagoryChip(
+                                                        CatagoryTitle: "food",
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          widget.isShowCatagory =
+                                                              false;
+                                                          widget
+                                                                  .catagoryController
+                                                                  .text =
+                                                              "Travel";
+                                                        });
+                                                      },
+                                                      child: CatagoryChip(
+                                                        CatagoryTitle: "travel",
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          widget.isShowCatagory =
+                                                              false;
+                                                          widget
+                                                                  .catagoryController
+                                                                  .text =
+                                                              "Other";
+                                                        });
+                                                      },
+                                                      child: CatagoryChip(
+                                                        CatagoryTitle: "other",
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          widget.isShowCatagory =
+                                                              false;
+                                                          widget
+                                                                  .catagoryController
+                                                                  .text =
+                                                              "Shopping";
+                                                        });
+                                                      },
+                                                      child: CatagoryChip(
+                                                        CatagoryTitle:
+                                                            "shopping",
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          widget.isShowCatagory =
+                                                              false;
+                                                          widget
+                                                                  .catagoryController
+                                                                  .text =
+                                                              "Entertainment";
+                                                        });
+                                                      },
+                                                      child: CatagoryChip(
+                                                        CatagoryTitle:
+                                                            "Entertainment",
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                .animate()
+                                                .fadeIn()
+                                                .slideX(
+                                                  begin: 1,
+                                                  end: 0,
+                                                  duration: Duration(
+                                                    milliseconds: 200,
                                                   ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.isShowCatagory =
-                                                          false;
-                                                      widget
-                                                              .catagoryController
-                                                              .text =
-                                                          "Travel";
-                                                    });
-                                                  },
-                                                  child: CatagoryChip(
-                                                    CatagoryTitle: "travel",
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.isShowCatagory =
-                                                          false;
-                                                      widget
-                                                              .catagoryController
-                                                              .text =
-                                                          "Other";
-                                                    });
-                                                  },
-                                                  child: CatagoryChip(
-                                                    CatagoryTitle: "other",
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.isShowCatagory =
-                                                          false;
-                                                      widget
-                                                              .catagoryController
-                                                              .text =
-                                                          "Shopping";
-                                                    });
-                                                  },
-                                                  child: CatagoryChip(
-                                                    CatagoryTitle: "shopping",
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.isShowCatagory =
-                                                          false;
-                                                      widget
-                                                              .catagoryController
-                                                              .text =
-                                                          "Entertainment";
-                                                    });
-                                                  },
-                                                  child: CatagoryChip(
-                                                    CatagoryTitle:
-                                                        "Entertainment",
-                                                  ),
-                                                ),
-                                              ],
-                                            )
+                                                )
                                           : Container(),
                                     ],
                                   ),
@@ -677,7 +688,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               Container(
                                 padding: EdgeInsetsGeometry.all(15.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: provider.isDarkMode
+                                      ? Colors.grey.shade900
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Column(
@@ -713,11 +726,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                         ),
                                         onPressed: () {
                                           if (widget
-                                                  .incomeController
-                                                  .text
-                                                  .isEmpty ||
-                                              widget.incomeController.text ==
-                                                  "0") {
+                                              .incomeController
+                                              .text
+                                              .isEmpty) {
                                             ScaffoldMessenger.of(
                                               context,
                                             ).showSnackBar(
@@ -732,10 +743,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                 ),
                                               ),
                                             );
-                                          } else if (double.tryParse(
+                                          } else if (!RegExp(
+                                                r'^\d+(\.\d+)?$',
+                                              ).hasMatch(
                                                 widget.incomeController.text,
-                                              )! <
-                                              0) {
+                                              ) ||
+                                              double.parse(
+                                                    widget
+                                                        .incomeController
+                                                        .text,
+                                                  ) <=
+                                                  0) {
                                             ScaffoldMessenger.of(
                                               context,
                                             ).showSnackBar(
