@@ -129,17 +129,24 @@ class _BreakDownScreenState extends State<BreakDownScreen> {
                           ),
                         ),
                         // Container For Showing The Expense BreakDown using pie chart
-                        provider.ExpenseDatefilteredForBreakDown.isEmpty
+                        provider.expenses.isEmpty ||
+                                provider.expenses.every((item) {
+                                  return item.expenseTitle?.toLowerCase() ==
+                                      "income";
+                                })
                             ? Padding(
                                 padding: EdgeInsetsGeometry.all(15.0),
                                 child: Text("No Expenses Yet"),
                               )
                             : provider.ExpenseDatefilteredForBreakDown.every((
-                                item,
-                              ) {
-                                return item.expenseTitle?.toLowerCase() ==
-                                    "income";
-                              })
+                                    item,
+                                  ) {
+                                    return item.expenseTitle?.toLowerCase() ==
+                                        "income";
+                                  }) ||
+                                  provider
+                                      .ExpenseDatefilteredForBreakDown
+                                      .isEmpty
                             ? Padding(
                                 padding: EdgeInsetsGeometry.all(15.0),
                                 child: Text("No Expense Found"),

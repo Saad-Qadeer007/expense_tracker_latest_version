@@ -24,14 +24,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ExpenseProvider>(builder: (context, provider, child) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppThemes().lightTheme,
-        darkTheme: AppThemes().darkTheme,
-        themeMode: provider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-        home: SplashScreen(),
-      );
-    });
+    return Consumer<ExpenseProvider>(
+      builder: (context, provider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppThemes().lightTheme,
+          darkTheme: AppThemes().darkTheme,
+          themeMode: provider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          home: SplashScreen(),
+        );
+      },
+    );
   }
 }

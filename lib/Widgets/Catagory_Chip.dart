@@ -37,7 +37,8 @@ class _CatagoryChipState extends State<CatagoryChip> {
                   : FaIcon(FontAwesomeIcons.mobileRetro, color: Colors.white),
               SizedBox(height: 8),
               Text(
-                widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1),
+                widget.CatagoryTitle[0].toUpperCase() +
+                    widget.CatagoryTitle.substring(1),
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],

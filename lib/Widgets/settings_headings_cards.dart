@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class SettingsHeadingsCard extends StatefulWidget {
   String HeadingTitle;
+
   SettingsHeadingsCard({super.key, required this.HeadingTitle});
 
   @override
@@ -14,15 +15,16 @@ class _SettingsHeadingsCardState extends State<SettingsHeadingsCard> {
     return Container(
       padding: EdgeInsetsGeometry.all(5.0),
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade400
-      ),
+      decoration: BoxDecoration(color: Colors.grey.shade400),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.HeadingTitle, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+          Text(
+            widget.HeadingTitle,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ],
-      )
+      ),
     );
   }
 }

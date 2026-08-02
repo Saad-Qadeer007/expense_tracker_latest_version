@@ -168,7 +168,7 @@ class _TransactionsCardState extends State<TransactionsCard> {
                                       MaterialPageRoute(
                                         builder: (context) => AddExpenseScreen(
                                           gettedExpenseAmountFromEditScreen:
-                                              widget.expenseAmount.toString(),
+                                              widget.expenseAmount,
                                           gettedExpenseTitleFromEditScreen:
                                               widget.expenseTitle ?? '',
                                           gettedExpenseCatagoryFromEditScreen:

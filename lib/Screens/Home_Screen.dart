@@ -4,6 +4,7 @@ import 'package:expense_tracker_latest_version/Screens/Monthly_Report_Analysis_S
 import 'package:expense_tracker_latest_version/Screens/Settings.dart';
 import 'package:expense_tracker_latest_version/Widgets/Icome_Expense_Card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../Ultilities/App_Colors.dart';
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AddExpenseScreen(
-                            gettedExpenseAmountFromEditScreen: "0.00",
+                            gettedExpenseAmountFromEditScreen: 0.00,
                             gettedExpenseTitleFromEditScreen: '',
                             gettedExpenseCatagoryFromEditScreen: '',
                             gettedExpenseDateFromEditScreen: null,
@@ -199,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.search),
-                                      labelText: "Enter description",
+                                      labelText: "Seach Expense",
                                       border: OutlineInputBorder(),
                                     ),
                                   ),
@@ -327,6 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                                     }
                                     return ListView.builder(
+                                      padding: EdgeInsets.only(bottom: 50),
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
@@ -334,13 +336,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       itemBuilder: (context, index) {
                                         final expense = transactions[index];
                                         return TransactionsCard(
-                                          Index: index,
-                                          expenseTitle: expense.expenseTitle,
-                                          catagoryTitle:
-                                              expense.expenseCategory,
-                                          expenseAmount: expense.expenseAmount,
-                                          expenseDate: expense.expenseDate,
-                                        );
+                                              Index: index,
+                                              expenseTitle:
+                                                  expense.expenseTitle,
+                                              catagoryTitle:
+                                                  expense.expenseCategory,
+                                              expenseAmount:
+                                                  expense.expenseAmount,
+                                              expenseDate: expense.expenseDate,
+                                            )
+                                            .animate(delay: (index * 50).ms)
+                                            .fadeIn(duration: 400.ms)
+                                            .slideY(begin: 0.2, end: 0);
                                       },
                                     );
                                   },

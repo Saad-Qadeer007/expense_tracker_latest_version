@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.monetization_on, size: 40,color: Colors.white,),
+                Icon(Icons.monetization_on, size: 40, color: Colors.white),
                 SizedBox(height: 16),
                 const Text(
                   'Expense Tracker',
@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
-                const CircularProgressIndicator(color: Colors.white,),
+                const CircularProgressIndicator(color: Colors.white),
                 const SizedBox(height: 16),
               ],
             ),

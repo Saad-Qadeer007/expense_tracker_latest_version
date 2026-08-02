@@ -24,7 +24,9 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
           color: Theme.of(context).cardColor,
           child: Container(
             decoration: BoxDecoration(
-              color: provider.isDarkMode ? Colors.grey.shade900 : AppColors.primary,
+              color: provider.isDarkMode
+                  ? Colors.grey.shade900
+                  : AppColors.primary,
               borderRadius: BorderRadius.circular(15),
             ),
             padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 20),
@@ -86,7 +88,8 @@ class _BreakdownChipsByCatagoryState extends State<BreakdownChipsByCatagory> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      widget.CatagoryTitle[0].toUpperCase() + widget.CatagoryTitle.substring(1),
+                      widget.CatagoryTitle[0].toUpperCase() +
+                          widget.CatagoryTitle.substring(1),
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     SizedBox(width: 10),

@@ -31,7 +31,11 @@ class _SettingsSubheadingCardsState extends State<SettingsSubheadingCards> {
               vertical: 15,
             ),
             width: double.infinity,
-            decoration: BoxDecoration(color: provider.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade200),
+            decoration: BoxDecoration(
+              color: provider.isDarkMode
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade200,
+            ),
             child: Row(
               spacing: 10,
               mainAxisAlignment: MainAxisAlignment.start,

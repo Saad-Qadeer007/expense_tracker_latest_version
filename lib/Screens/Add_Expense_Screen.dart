@@ -11,7 +11,7 @@ import '../Ultilities/App_Colors.dart';
 class AddExpenseScreen extends StatefulWidget {
   String gettedExpenseTitleFromEditScreen;
   String gettedExpenseCatagoryFromEditScreen;
-  String? gettedExpenseAmountFromEditScreen;
+  double? gettedExpenseAmountFromEditScreen;
   DateTime? gettedExpenseDateFromEditScreen;
   int index;
 
@@ -40,11 +40,15 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   DateTime? pickedDate;
 
   void passingValuesToFields() {
-    widget.dateController.text =
-        "${widget.gettedExpenseDateFromEditScreen?.day}/${widget.gettedExpenseDateFromEditScreen?.month}/${widget.gettedExpenseDateFromEditScreen?.year}";
+    print(widget.gettedExpenseAmountFromEditScreen.runtimeType);
+    widget.dateController.text = widget.gettedExpenseDateFromEditScreen == null
+        ? ""
+        : "${widget.gettedExpenseDateFromEditScreen?.day}/${widget.gettedExpenseDateFromEditScreen?.month}/${widget.gettedExpenseDateFromEditScreen?.year}";
     widget.titleController.text = widget.gettedExpenseTitleFromEditScreen;
-    widget.amountController.text = widget.gettedExpenseAmountFromEditScreen
-        .toString();
+    widget.amountController.text =
+        widget.gettedExpenseAmountFromEditScreen == 0.00
+        ? ""
+        : widget.gettedExpenseAmountFromEditScreen.toString();
     widget.catagoryController.text = widget.gettedExpenseCatagoryFromEditScreen;
   }
 
@@ -449,22 +453,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                     .amountController
                                                     .text
                                                     .isEmpty ||
-                                                double.tryParse(
-                                                      widget
-                                                          .amountController
-                                                          .text,
-                                                    )! <=
-                                                    0 ||
                                                 widget
                                                     .catagoryController
                                                     .text
                                                     .isEmpty ||
                                                 widget
                                                     .dateController
-                                                    .text
-                                                    .isEmpty ||
-                                                widget
-                                                    .catagoryController
                                                     .text
                                                     .isEmpty) {
                                               ScaffoldMessenger.of(
@@ -483,6 +477,35 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                                   ),
                                                 ),
                                               );
+                                            } else if (!RegExp(
+                                                  r'^\d+(\.\d+)?$',
+                                                ).hasMatch(
+                                                  widget.amountController.text,
+                                                ) ||
+                                                double.parse(
+                                                      widget
+                                                          .amountController
+                                                          .text,
+                                                    ) <=
+                                                    0) {
+                                              print("run");
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  duration: Duration(
+                                                    seconds: 2,
+                                                  ),
+                                                  content: Text(
+                                                    "Please enter a valid amount",
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                              return;
                                             } else if (provider.Balance <
                                                 double.parse(
                                                   widget.amountController.text,

@@ -13,7 +13,6 @@ class ExpenseBreakDownChart extends StatefulWidget {
 }
 
 class _ExpenseBreakDownChartState extends State<ExpenseBreakDownChart> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseProvider>(
